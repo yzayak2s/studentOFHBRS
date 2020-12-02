@@ -4,7 +4,7 @@ package org.hbrs.se.ws20.prototype.uebung4;
  * Klasse UserStory, repräsentiert ein langlebiges Entity, welches persistiert wird
  */
 
-public class UserStory implements java.io.Serializable {
+public class UserStory implements java.io.Serializable, Comparable {
 	
 	private String titel;
 	private int aufwand = 0;
@@ -74,5 +74,12 @@ public class UserStory implements java.io.Serializable {
 	}
 	public void setStrafe(int strafe) {
 		this.strafe = strafe;
+	}
+
+
+	@Override
+	public int compareTo(Object o) {
+		return 0; // Prio
+		// -1, 1,0
 	}
 }

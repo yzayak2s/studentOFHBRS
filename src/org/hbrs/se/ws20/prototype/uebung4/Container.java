@@ -9,6 +9,9 @@ import java.util.Scanner;
 /*
  * Klasse zum Management sowie zur Eingabe unnd Ausgabe von User Stories.
  * Die Anwendung wird über dies Klasse auch gestartet (main-Methode hier vorhanden)
+ *
+ * Erkenntnis aus den Übungen: die Klasse MUSS aufgesplittet werden!
+ * (siehe Blueprint einer Architektur auf LEA)
  * 
  * erstellt von Julius P., H-BRS 2020, Version 1.5
  * 
@@ -21,14 +24,15 @@ public class Container {
 	
 	// Statische Klassen-Variable, um die Referenz
 	// auf das einzige Container-Objekt abzuspeichern
-	// Diese Variante sei thread-safe, so hat Hr. P. es gehört...
+	// Diese Variante sei thread-safe, so hat Hr. P. es gehört... --> RICHTIG
 	private static Container instance = new Container();
 	
 	// URL der Datei, in der die Objekte gespeichert werden 
 	final static String LOCATION = "userstories1.ser";
 
 	/**
-	 * Liefert ein Singleton zurück. Diese Methode ist thread-safe (oder...?)
+	 * Liefert ein Singleton zurück. Diese Methode ist thread-safe (oder...?) --> RICHTIG
+	 * Nachteil: ggf. hoher Speicherbedarf, da Singleton zu Programmstart schon erzeugt
 	 * @return
 	 */
 	public static Container getInstance() {
@@ -36,9 +40,9 @@ public class Container {
 	}
 	
 	/**
-	 * Ueberschreiben des Konstruktors (private) gemaess Singleton-Pattern
+	 * Vorschriftsmäßiges Ueberschreiben des Konstruktors (private) gemaess Singleton-Pattern
 	 */
-	Container(){
+	private Container(){
 		liste = new ArrayList<UserStory>();
 	}
 	
@@ -62,10 +66,11 @@ public class Container {
 		
 		// Initialisierung des Eingabe-View
 		Scanner scanner = new Scanner( System.in );
-		
+
+		// Ausgabe eines Texts zur Begruessung
+		System.out.println("Prio-Tool V1.5 by Julius P. (dedicated to all my friends)");
+
 		while ( true ) {
-			// Ausgabe eines Texts zur Begruessung
-			System.out.println("Prio-Tool V1.5 by Julius P. (dedicated to all my friends)");
 			System.out.print( "> "  );
 
 			strInput = scanner.nextLine();
@@ -96,21 +101,25 @@ public class Container {
 	/**
 	 * Diese Methode realisiert die Ausgabe.
 	 */
-	public void startAusgabe(){
+	public void startAusgabe() {
 
 		// Hier möchte Herr P. die Liste mit einem eigenen Sortieralgorithmus sortieren und dann
 		// ausgeben. Allerdings weiss der Student hier nicht weiter
 
 		// [Sortierung ausgelassen]
-
+		java.util.Collections.sort( this.liste );
 
 		// Klassische Ausgabe ueber eine For-Each-Schleife
-		for ( UserStory us : liste ) {
-			System.out.println( us.toString() );
+		for (UserStory us : liste) {
+			System.out.println(us.toString());
 		}
 
-		// [Variante mit forEach / Streams? Gerne auch mit Beachtung der neuen US1
+		// [Variante mit forEach-Methode / Streams (--> Kapitel 9)? Gerne auch mit Beachtung der neuen US1
 		// (Filterung Aufwand > x)
+		liste.stream().filter( userStory -> userStory.getAufwand() > 4  )   // Filter
+				.filter( userStory -> userStory.getPrio() < 2.0 )
+				.sorted(  (us1, us2)  -> Double.compare( us1.getPrio() , us2.getPrio() ) ) // MAP
+				.forEach( userStory -> System.out.println( userStory.toString() ) ); // Reduce
 	}
 
 	/*
@@ -137,7 +146,6 @@ public class Container {
 		}
 	}
 
-	
 	/*
 	 * Methode zum Laden der Liste. Es wird die komplette Liste
 	 * inklusive ihrer gespeicherten UserStory-Objekte geladen.
