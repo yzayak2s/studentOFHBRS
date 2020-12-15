@@ -1,8 +1,8 @@
 package org.hbrs.se.ws20.demo.dependencies;
 
 /**
- * Demo zur Implementierung eines Interface mit Default-Methoden
- * sowie mit statischen Methoden
+ * Demo zur Implementierung eines Interfaces mit Default-Methoden
+ * sowie mit statischen Methoden (ab Java 8)
  */
 
 
