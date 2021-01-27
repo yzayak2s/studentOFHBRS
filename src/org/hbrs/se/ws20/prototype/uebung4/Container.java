@@ -95,6 +95,8 @@ public class Container {
 			if (  strings[0].equals("store")  ) {
 				this.store();
 			}
+
+
 		} // Ende der Schleife
 	}
 

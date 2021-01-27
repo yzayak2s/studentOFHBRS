@@ -7,15 +7,16 @@ public class GermanTranslator implements Translator {
 	/**
 	 * Methode zur Übersetzung einer Zahl in eine String-Repraesentation
 	 */
-	public String translateNumber( int number ) { 
-		// [ihr Source Code aus Übung 1-2] 
+	public String translateNumber( int number ) {
+		// [ihr Source Code aus Übung 1-2]
+
 		return null;
 	}
 		
 	/**
 	 * Objektmethode der Klasse GermanTranslator zur Ausgabe einer Info.
 	 */
-	public void printInfo() {
+	public void printInfo(){
 		System.out.println( "GermanTranslator v1.9, erzeugt am " + this.date );
 	}
 

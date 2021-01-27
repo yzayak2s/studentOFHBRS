@@ -15,7 +15,7 @@ public class Client {
 	 * 3. Abhängigkeit über ein statisches Element (hier: eine statische Methode) (Abhängigkeit Nr. 3)
 	 */
     
-    // Abhängigkeit Nr. 1 (Instanz-Variable)
+    // Abhängigkeit Nr. 1 (Instanz-Variable) --> auch eine Assoziation!
     private Application app;
     
     public void print() {

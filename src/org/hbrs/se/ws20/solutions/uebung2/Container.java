@@ -7,14 +7,26 @@ import java.util.function.Consumer;
 import java.util.stream.Collectors;
 
 public class Container {
-	
-	/*
-	 * Leerer Konstruktor
-	 */
-	public Container(){
+
+	private static Container instance = null;
+
+	private Container() {
 	}
 
-	/* 
+	// Vorteil: Erzeugung des Objekts bei Bedarf
+	// Nachteil: Probleme bei parallelem Zugriff von Client-Objekten
+	// (Multi-Threading) --> Lösung ist nicht thread-safe
+	// Eine "thread-safe" Lösung: synchronized
+	// Anwendungsfalls für Singleton Pattern: Daten-Verwaltung
+	public static synchronized Container getInstance() {
+		if ( instance == null ) {
+			instance = new Container();
+		}
+		return instance;
+	}
+
+
+	/*
 	 * Interne ArrayList zur Abspeicherung der Objekte
 	 * Alternative: HashMap oder Set. HashMap hat vor allem Probleme 
 	 * bei der Bewahrung der Konsistenz vom Key und Value (siehe TestStore, letzter Test)
