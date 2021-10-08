@@ -1,4 +1,4 @@
-package org.hbrs.se1.ws21.uebung1.control;
+package org.hbrs.se1.ws21.uebung1.control; //Sortierung des Codes der Klassen, Zugriffsteuerung, bringt Struktur
 
 public class GermanTranslator implements Translator {
 
