@@ -1,7 +1,13 @@
 package org.hbrs.se1.ws21.uebung1.view;
 
+import com.sun.java.accessibility.util.Translator;
+import org.hbrs.se1.ws21.uebung1.control.GermanTranslator;
 import org.hbrs.se1.ws21.uebung1.control.TranslatorFactory;
-
+/**
+ *
+ * @author yzayak2s rfalke2s
+ *
+ */
 public class Client {
 
 	/*
@@ -13,10 +19,10 @@ public class Client {
 		// aufgerufen werden.
 		//
 		// Strenge Implementierung gegen das Interface Translator gewuenscht!
-		Object translator = TranslatorFactory.createGermanTranslator();
+		GermanTranslator translator = TranslatorFactory.createGermanTranslator();
 
 		System.out.println("Das Ergebnis der Berechnung: " +
-				"[das Ergebnis an dieser Stelle]"  );
+				translator.translateNumber(aNumber));
 
 	}
 }
