@@ -7,8 +7,14 @@ public class GermanTranslator implements Translator {
 	/**
 	 * Methode zur Übersetzung einer Zahl in eine String-Repraesentation
 	 */
+
 	public String translateNumber(int number) {
 		// [ihr Source Code aus Übung 1-2]
+		/**
+		 *
+		 * @author yzayak2s rfalke2s
+		 *
+		 */
 		String[] deutscheZahlenArray = {"eins", "zwei", "drei", "vier", "fünf", "sechs", "sieben", "acht", "neun", "zehn"};
 		try {
 			return deutscheZahlenArray[number];
