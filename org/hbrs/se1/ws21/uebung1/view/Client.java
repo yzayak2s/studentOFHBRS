@@ -1,5 +1,7 @@
 package org.hbrs.se1.ws21.uebung1.view;
 
+import org.hbrs.se1.ws21.uebung1.control.TranslatorFactory;
+
 public class Client {
 
 	/*
@@ -11,6 +13,7 @@ public class Client {
 		// aufgerufen werden.
 		//
 		// Strenge Implementierung gegen das Interface Translator gewuenscht!
+		Object translator = TranslatorFactory.createGermanTranslator();
 
 		System.out.println("Das Ergebnis der Berechnung: " +
 				"[das Ergebnis an dieser Stelle]"  );
