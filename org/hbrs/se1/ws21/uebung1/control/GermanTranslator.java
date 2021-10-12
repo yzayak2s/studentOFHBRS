@@ -17,7 +17,7 @@ public class GermanTranslator implements Translator {
 		 */
 		String[] deutscheZahlenArray = {"eins", "zwei", "drei", "vier", "fünf", "sechs", "sieben", "acht", "neun", "zehn"};
 		try {
-			return deutscheZahlenArray[number];
+			return deutscheZahlenArray[number-1];
 		} catch (Exception e) {
 			return String.format("Übersetzung der Zahl %d nicht möglich (%f)", number, version);
 		}
