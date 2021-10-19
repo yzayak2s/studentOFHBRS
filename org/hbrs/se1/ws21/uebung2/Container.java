@@ -2,15 +2,20 @@ package org.hbrs.se1.ws21.uebung2;
 
 
 import java.util.ArrayList;
-
+/**
+ *
+ * @author yzayak2s rfalke2s
+ *
+ */
 public class Container{
-    ArrayList<Member> list = new ArrayList<>(); // Generische Klasse -> Generik
+    private ArrayList<Member> list; // instanzvariablen alle private setzen
     public Container(){
-        Container container = new Container();
+        // Container container = new Container();
+        list = new ArrayList<>(); // Generische Klasse -> Generik
     }
 
-    public static Mitglied newMember(){
-        return new Mitglied();
+    public static Mitglied newMember(int number){
+        return new Mitglied(number);
     }
 
     public void addMember(Member member) throws ContainerException { // (geprüfte Exception)
