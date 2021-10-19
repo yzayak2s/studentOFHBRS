@@ -1,4 +1,5 @@
-package org.hbrs.se1.ws21.uebung2;
+import org.hbrs.se1.ws21.uebung2.Container;
+import org.hbrs.se1.ws21.uebung2.Member;
 import org.junit.Test;
 import static org.junit.Assert.*;
 
