@@ -1,9 +1,6 @@
 package org.hbrs.se1.ws21.uebung3.persistence;
 
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
+import java.io.*;
 
 import java.util.List;
 
@@ -41,7 +38,13 @@ public class PersistenceStrategyStream<Member> implements PersistenceStrategy<Me
      * Method for saving a list of Member-objects to a disk (HDD)
      */
     public void save(List<Member> member) throws PersistenceException  {
-
+        try {
+            ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(location));
+            oos.writeObject(member);
+            oos.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
@@ -54,18 +57,29 @@ public class PersistenceStrategyStream<Member> implements PersistenceStrategy<Me
         // Some Coding hints ;-)
         // ObjectInputStream ois = null;
         // FileInputStream fis = null;
-        // List<...> newListe =  null;
+        List<Member> newListe =  null;
         //
+        try {
+            ObjectInputStream ois = new ObjectInputStream(new FileInputStream(location));
+            ois.close();
+            Object obj = ois.readObject();
+            if (obj instanceof List<?>) {
+                newListe = (List) obj;
+                ois.close();
+                return newListe;
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
         // Initiating the Stream (can also be moved to method openConnection()... ;-)
         // fis = new FileInputStream( " a location to a file" );
         // ois = new ObjectInputStream(fis);
 
         // Reading and extracting the list (try .. catch ommitted here)
-        // Object obj = ois.readObject();
 
-        // if (obj instanceof List<?>) {
-        //       newListe = (List) obj;
-        // return newListe
+
 
         // and finally close the streams (guess where this could be...?)
         return null;
