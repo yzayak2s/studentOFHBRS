@@ -6,11 +6,11 @@ package org.hbrs.se1.ws21.uebung1.test;
  *
  */
 import org.hbrs.se1.ws21.uebung1.control.*;
-import org.hbrs.se1.ws21.uebung1.view.Client;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
+
 import static org.junit.Assert.*;
 
-public class TestClass {
+public class TestFactory {
     @Test
     public void test(){
         GermanTranslator translator = TranslatorFactory.createGermanTranslator();
