@@ -12,25 +12,41 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
  */
 public class TestContainer {
     @Test
-    public void test() throws ContainerException {
+    public void test(){
         Container container = Container.getInstance();
         Mitglied mitglied1 = new Mitglied(33);
         Mitglied mitglied2 = new Mitglied(5);
         Mitglied mitglied3 = new Mitglied(22);
         assertEquals(0,container.size()); // Keine Mitglieder
-        container.addMember(mitglied1);
-        container.addMember(mitglied2);
+        try {
+            container.addMember(mitglied1);
+            container.addMember(mitglied2);
+        } catch (ContainerException e) {
+            e.printStackTrace();
+        }
         assertEquals(2,container.size());
         container.deleteMember(5);
         assertEquals(1,container.size()); // Nach Löschung eines Mitglieds
         assertThrows(ContainerException.class, () -> container.addMember(mitglied1)); // 1. Objekt - 2. Argument Throwable
-        container.addMember(mitglied3);
+        try {
+            container.addMember(mitglied3);
+        } catch (ContainerException e) {
+            e.printStackTrace();
+        }
         assertEquals(2, container.size());
         //assertEquals(null,);
         //Member member3 = container.addMember(Container.newMember()).setID(-1);
         //assertEquals("33", mitglied1.getID());
         //assertEquals("0", member2.toString());
         //assertEquals("-1", member3.toString());
+    }
+
+    public void testNullStrategy(){
 
     }
+
+    public void testPersistenceStrategy(){
+
+    }
+
 }
