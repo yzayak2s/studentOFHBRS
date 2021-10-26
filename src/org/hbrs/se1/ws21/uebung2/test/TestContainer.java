@@ -1,9 +1,11 @@
+import org.hbrs.se1.ws21.uebung2.Client;
 import org.hbrs.se1.ws21.uebung2.Container;
 import org.hbrs.se1.ws21.uebung2.ContainerException;
 import org.hbrs.se1.ws21.uebung2.Mitglied;
 import org.junit.jupiter.api.Test;
-import static org.junit.Assert.*;
-import static org.junit.jupiter.api.Assertions.assertThrows;
+
+import static org.junit.jupiter.api.Assertions.*;
+
 
 /**
  *
@@ -46,7 +48,8 @@ public class TestContainer {
     }
 
     public void testPersistenceStrategy(){
-
+        Client.Client(1,2,3);
+        //assertThrows(3,Container.getInstance().size());
     }
 
 }

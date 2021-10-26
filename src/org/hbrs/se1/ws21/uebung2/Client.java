@@ -26,9 +26,6 @@ public class Client {
     public static class Main{
         public static void main(String[] args) {
             Client.Client(1,2,3,4,5);
-
         }
-
-
     }
 }

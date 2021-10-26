@@ -8,7 +8,7 @@ package org.hbrs.se1.ws21.uebung1.test;
 import org.hbrs.se1.ws21.uebung1.control.*;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.Assert.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class TestFactory {
     @Test
