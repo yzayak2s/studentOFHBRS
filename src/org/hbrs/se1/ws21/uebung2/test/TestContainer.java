@@ -15,7 +15,9 @@ import static org.junit.jupiter.api.Assertions.*;
 public class TestContainer {
     @Test
     public void test(){
+        //System.out.println("TEST");
         Container container = Container.getInstance();
+        //Container container2 = Container.getInstance();
         Mitglied mitglied1 = new Mitglied(33);
         Mitglied mitglied2 = new Mitglied(5);
         Mitglied mitglied3 = new Mitglied(22);

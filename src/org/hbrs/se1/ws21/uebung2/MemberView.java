@@ -7,7 +7,7 @@ public class MemberView {
         dump(Container.getInstance().getCurrentList());
     }
     public void dump(List<Member> list1){
-        for (Member member : list1) {
+        for (Member member : list1) { // Lösung mit Member For each:
             System.out.println(member.toString()); //Ausgabe auf der Konsole
         }
     }
