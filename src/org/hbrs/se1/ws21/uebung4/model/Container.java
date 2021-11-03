@@ -1,4 +1,6 @@
-package org.hbrs.se1.ws21.uebung4.prototype;
+package org.hbrs.se1.ws21.uebung4.model;
+
+import org.hbrs.se1.ws21.uebung4.control.EingabeDialog;
 
 import java.io.*;
 import java.util.ArrayList;
@@ -101,8 +103,9 @@ public class Container {
 			if ( strings[0].equals("enter") ) {
 				// Daten einlesen ...
 				// this.addEmployee( new Employee( data ) ) um das Objekt in die Liste einzufügen.
+				EingabeDialog.eingabeDialog();
 			}
-								
+
 			if (  strings[0].equals("store")  ) {
 				// Beispiel-Code
 				Employee employee = new Employee();
@@ -110,7 +113,16 @@ public class Container {
 				this.addEmployee( employee );
 				this.store();
 			}
-
+			// Anwendung beenden, Scanner schließen
+			if (strings[0].equals("exit")){
+				scanner.close();
+			}
+			if (  strings[0].equals("search")  ) {
+				// Beispiel-Code
+			}
+			if (  strings[0].equals("load")  ) {
+				// Beispiel-Code
+			}
 
 		} // Ende der Schleife
 	}
