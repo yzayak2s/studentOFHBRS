@@ -19,6 +19,10 @@ import java.util.stream.Collectors;
  * - Anpassen der Methodennamen
  *
  * (Was ist ihre Strategie zur Wiederverwendung?)
+ * Klasse Employe implementiert Interface Member (Employee implements Member)
+ * Vorteil: Wiederverwendung von Member, ID verwenden; Strenge Implementierung gegen Interface
+ * Nachteil: Viele Casts notwendig, um auf die anderen Methoden zuzugreifen
+ * Alternative: Container mit Generic entwickeln (z.B. Container<E>))
  * 
  */
 
@@ -29,7 +33,7 @@ public class Container {
 	
 	// Statische Klassen-Variable, um die Referenz
 	// auf das einzige Container-Objekt abzuspeichern
-	// Diese Variante sei thread-safe, so hat Hr. P. es gehört... --> ToDo
+	// Diese Variante sei thread-safe, so hat Hr. P. es gehört... stimmt das? --> JA!
 	// Nachteil: ggf. hoher Speicherbedarf, da Singleton zu Programmstart schon erzeugt
 	private static Container instance = new Container();
 	
@@ -46,8 +50,9 @@ public class Container {
 	
 	/**
 	 * Vorschriftsmäßiges Ueberschreiben des Konstruktors (private) gemaess Singleton-Pattern (oder?)
+	 * Nun auf private gesetzt! Vorher ohne Access Qualifier (--> dann package-private)
 	 */
-	Container(){
+	private Container(){
 		liste = new ArrayList<Employee>();
 	}
 	
@@ -72,9 +77,10 @@ public class Container {
 		// Initialisierung des Eingabe-View
 		Scanner scanner = new Scanner( System.in );
 
+		// Ausgabe eines Texts zur Begruessung
+		System.out.println("Employee-Tool V1.1 by Julius P. (dedicated to all my friends)");
+
 		while ( true ) {
-			// Ausgabe eines Texts zur Begruessung
-			System.out.println("Employee-Tool V1.1 by Julius P. (dedicated to all my friends)");
 
 			System.out.print( "> "  );
 
@@ -98,6 +104,7 @@ public class Container {
 			}
 								
 			if (  strings[0].equals("store")  ) {
+				// Beispiel-Code
 				Employee employee = new Employee();
 				employee.setPid(2);
 				this.addEmployee( employee );
@@ -117,7 +124,7 @@ public class Container {
 		// ausgeben. Allerdings weiss der Student hier nicht weiter
 
 		// [Sortierung ausgelassen]
-
+		Collections.sort( this.liste );
 
 		// Klassische Ausgabe ueber eine For-Each-Schleife
 		for (Employee employee : liste) {
@@ -127,6 +134,11 @@ public class Container {
 		// [Variante mit forEach-Methode / Streams (--> Kapitel 9, Lösung Übung Nr. 2)?
 		//  Gerne auch mit Beachtung der neuen US1
 		// (Filterung Abteilung = "ein Wert (z.B. Marketing)"
+		List<String> listeMitNamen = this.liste.stream()
+				.filter( employee -> employee.getAbteilung().equals("Marketing") )
+				.filter (employee ->  employee.getPid() > 100 )
+				.map( employee -> employee.getName() )
+				.collect(Collectors.toList()); // reduce
 
 	}
 

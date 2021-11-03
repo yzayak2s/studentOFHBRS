@@ -1,6 +1,6 @@
 package org.hbrs.se1.ws21.uebung4.prototype;
 
-public class Employee {
+public class Employee implements java.io.Serializable, Comparable {
 
     private String vorname;
     private String name;
@@ -39,5 +39,9 @@ public class Employee {
         this.pid = pid;
     }
 
+    @Override
+    public int compareTo(Object o) {
+        return 0; // Werte: 0, 1, -1 --> Pid vergleichen!
+    }
 }
 
