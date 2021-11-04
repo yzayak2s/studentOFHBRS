@@ -3,10 +3,7 @@ package org.hbrs.se1.ws21.uebung4.model;
 import org.hbrs.se1.ws21.uebung4.control.EingabeDialog;
 
 import java.io.*;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-import java.util.Scanner;
+import java.util.*;
 import java.util.stream.Collectors;
 
 /*
@@ -136,7 +133,9 @@ public class Container {
 
 		// Hier möchte Herr P. die Liste mit einem eigenen Sortieralgorithmus sortieren und dann
 		// ausgeben. Allerdings weiss der Student hier nicht weiter
-
+		for (Employee employee : liste) {
+			liste.sort(Comparator.comparingInt());
+		}
 		// [Sortierung ausgelassen]
 		Collections.sort( this.liste );
 

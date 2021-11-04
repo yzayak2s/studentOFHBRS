@@ -17,7 +17,7 @@ public static Employee eingabeDialog() {
     employee.setName(sc.next());
     System.out.print("Geben Sie bitte ein, welche Rolle der Mitarbeiter im Unternehmen hat: ");
     employee.setRolle(sc.next());
-    System.out.print("Geben Sie bitte die Abteilung des Mitarbeiters ein, falls vorhanden: ");
+    System.out.print("Geben Sie bitte die Abteilung des Mitarbeiters ein, falls vorhanden (sonst n/a): ");
     employee.setAbteilung(sc.next());
     List<Object> employeeExpertise = new ArrayList<Object>();
     for (int i = 0; i < 3; ++i) {
