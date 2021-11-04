@@ -98,29 +98,31 @@ public class Container {
 			// Auswahl der bisher implementierten Befehle:
 			if ( strings[0].equals("dump") ) {
 				startAusgabe();
+
 			}
 			// Auswahl der bisher implementierten Befehle:
 			if ( strings[0].equals("enter") ) {
 				// Daten einlesen ...
 				// this.addEmployee( new Employee( data ) ) um das Objekt in die Liste einzufügen.
-				EingabeDialog.eingabeDialog();
+				this.addEmployee( EingabeDialog.eingabeDialog() );
 			}
 
 			if (  strings[0].equals("store")  ) {
-				// Beispiel-Code
-				Employee employee = new Employee();
-				employee.setPid(2);
-				this.addEmployee( employee );
 				this.store();
 			}
 			// Anwendung beenden, Scanner schließen
 			if (strings[0].equals("exit")){
 				scanner.close();
+				break;
 			}
 			if (  strings[0].equals("search")  ) {
 				// Beispiel-Code
 			}
-			if (  strings[0].equals("load")  ) {
+			if (  strings[0].equals("load force")  ) {
+				// Beispiel-Code
+				load();
+			}
+			if (  strings[0].equals("load merge")  ) {
 				// Beispiel-Code
 			}
 

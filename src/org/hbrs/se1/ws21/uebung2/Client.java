@@ -21,7 +21,7 @@ public class Client {
             }
         }
         MemberView memberView = new MemberView();
-        memberView.dump();
+        //memberView.dump();
     }
     public static class Main{
         public static void main(String[] args) {

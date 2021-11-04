@@ -1,6 +1,6 @@
 package org.hbrs.se1.ws21.uebung4.view;
 
-import org.hbrs.se1.ws21.uebung2.Member;
+import org.hbrs.se1.ws21.solutions.uebung2.Member;
 
 import java.util.List;
 
