@@ -3,7 +3,7 @@ package org.hbrs.se1.ws21.uebung4.model;
 
 import java.util.List;
 
-public class Employee implements java.io.Serializable, Comparable, Member {
+public class Employee implements java.io.Serializable, Comparable<Employee>, Member {
 
     private String vorname;
     private String name;
@@ -82,10 +82,9 @@ public class Employee implements java.io.Serializable, Comparable, Member {
         return ("Mitarbeiter-ID: "+ getPid() +", Name: " + getVorname() + " " + getName() + ", Rolle: " + getRolle()) +", Abteilung: " +getAbteilung();
     }
 
-
     @Override
-    public int compareTo(Object o) {
-        return 0; // Werte: 0, 1, -1 --> Pid vergleichen!
+    public int compareTo(Employee e) {
+        return this.pid.compareTo(e.pid); // Werte: 0, 1, -1 --> Pid vergleichen!
     }
 }
 

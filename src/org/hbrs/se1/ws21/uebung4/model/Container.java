@@ -115,12 +115,21 @@ public class Container {
 			if (  strings[0].equals("search")  ) {
 				// Beispiel-Code
 			}
-			if (  strings[0].equals("load force")  ) {
+			if (  strings[0].equals("load")&&strings[1].equals("force")  ) {
 				// Beispiel-Code
-				load();
+				liste = null;
+				this.load();
 			}
-			if (  strings[0].equals("load merge")  ) {
+			if (  strings[0].equals("load")&&strings[1].equals("merge")  ) {
 				// Beispiel-Code
+				List<Employee> tmp = getCurrentList();
+				load();
+				for(Employee employee: tmp){
+					if (liste.contains(employee)){ }
+					else{
+						liste.add(employee);
+					}
+				}
 			}
 
 		} // Ende der Schleife
@@ -133,12 +142,14 @@ public class Container {
 
 		// Hier möchte Herr P. die Liste mit einem eigenen Sortieralgorithmus sortieren und dann
 		// ausgeben. Allerdings weiss der Student hier nicht weiter
-		for (Employee employee : liste) {
-			liste.sort(Comparator.comparingInt());
-		}
-		// [Sortierung ausgelassen]
-		Collections.sort( this.liste );
 
+		// [Sortierung ausgelassen]
+		try {
+			bubbleSort(liste, liste.size());
+		}
+		catch (ContainerException e){
+			System.out.println("Der Container ist leer!");
+		}
 		// Klassische Ausgabe ueber eine For-Each-Schleife
 		for (Employee employee : liste) {
 			System.out.println(employee.toString());
@@ -153,6 +164,25 @@ public class Container {
 				.map( employee -> employee.getName() )
 				.collect(Collectors.toList()); // reduce
 
+	}
+	static void bubbleSort(List<Employee> employees, int n) throws ContainerException {
+		if (n==0)
+		{
+			throw new ContainerException("Container Empty");
+		}
+		if (n == 1)                     //passes are done
+		{
+			return;
+		}
+		for (int i=0; i<n-1; i++)       //iteration through unsorted elements
+		{
+			if (employees.get(i).compareTo(employees.get(i+1))>=1)      //prüft ob die ID von i > i+1
+			{                           // falls nicht wird die Position getauscht
+				Collections.swap(employees, i, i+1);
+			}
+		}
+
+		bubbleSort(employees, n-1);           //one pass done, proceed to the next
 	}
 
 	/*
@@ -189,7 +219,6 @@ public class Container {
 		try {
 		  fis = new FileInputStream( Container.LOCATION );
 		  ois = new ObjectInputStream(fis);
-		  
 		  // Auslesen der Liste
 		  Object obj = ois.readObject();
 		  if (obj instanceof List<?>) {
