@@ -70,21 +70,21 @@ public class Container {
 	 * Das entlastet den Entwickler zur Entwicklungszeit und den Endanwender zur Laufzeit
 	 */
 	public void startEingabe() throws ContainerException, Exception {
-	
+
 		String strInput = null;
-		
+
 		// Initialisierung des Eingabe-View
-		Scanner scanner = new Scanner( System.in );
+		Scanner scanner = new Scanner(System.in);
 
 		// Ausgabe eines Texts zur Begruessung
-		System.out.println("Employee-Tool V1.1 by yzayakh & rfalke2s");
+		System.out.println("Employee-Tool V1.1 by yzayak2s & rfalke2s");
 
-		while ( true ) {
+		while (true) {
 
-			System.out.print( "> "  );
+			System.out.print("> ");
 
 			strInput = scanner.nextLine();
-		
+
 			// Extrahiert ein Array aus der Eingabe
 			String[] strings = strInput.split(" ");
 
@@ -93,65 +93,65 @@ public class Container {
 				System.out.println("Folgende Befehle stehen zur Verfuegung: help, dump....");
 			}
 			// Auswahl der bisher implementierten Befehle:
-			if ( strings[0].equals("dump") ) {
+			if (strings[0].equals("dump")) {
 				startAusgabe(liste, "dump");
 
 			}
 			// Auswahl der bisher implementierten Befehle:
-			if ( strings[0].equals("enter") ) {
+			if (strings[0].equals("enter")) {
 				// Daten einlesen ...
 				// this.addEmployee( new Employee( data ) ) um das Objekt in die Liste einzufügen.
-				this.addEmployee( EingabeDialog.eingabeDialog() );
+				this.addEmployee(EingabeDialog.eingabeDialog());
 			}
 
-			if (  strings[0].equals("store")  ) {
+			if (strings[0].equals("store")) {
 				this.store();
 			}
 			// Anwendung beenden, Scanner schließen
-			if (strings[0].equals("exit")){
+			if (strings[0].equals("exit")) {
 				scanner.close();
 				break;
 			}
-			if (  strings[0].equals("search")  ) {
-				// Beispiel-Code
+			if (strings[0].equals("search")) {
 				List<Employee> tmp = new ArrayList<>();
-				for(Employee employee: liste){
-					for(int i = 0; i < employee.getExpertise().size(); i++){
-						if (strings[1].equals(employee.getExpertise().get(i))){
+				for (Employee employee : liste) {
+					for (int i = 0; i < employee.getExpertise().size(); i++) {
+						if (strings[1].equals(employee.getExpertise().get(i))) {
 							tmp.add(employee);
 						}
 					}
 				}
 				startAusgabe(tmp, strings[1]);
 			}
-
-			try {
-				if (  strings[0].equals("load")&&strings[1].equals("force")  ) {
-					liste = null;
-					this.load();
-				}
-			}
-			catch (ArrayIndexOutOfBoundsException e) {
-				System.out.println("Geben sie bitte die Variante des Ladens als 2. Parameter an (load force oder load merge).");
-			}
-			try {
-				if (  strings[0].equals("load")&&strings[1].equals("merge")  ) {
-					List<Employee> tmp = getCurrentList();	// zwischenzeitliches speichern der aktuellen Liste im Container
-					load();									// ersetzen der liste durch die liste im File
-					for(Employee employee: tmp){
-						if (liste.contains(employee)){ }
-						else{
-							liste.add(employee);			// hinzufügen der temporär gespeicherten Mitarbeiter sofern noch nicht im Speicher
+			if (strings[0].equals("load")) {
+				try {
+					if (strings[1].equals("force")) {
+						liste = null;
+						this.load();
+					} else if (strings[1].equals("merge")) {
+						List<Employee> tmp = getCurrentList();    // zwischenzeitliches speichern der aktuellen Liste im Container
+						load();                                    // ersetzen der liste durch die liste im File
+						for (Employee employee : tmp) {
+							if (liste.contains(employee)) {
+							} else {
+								liste.add(employee);            // hinzufügen der temporär gespeicherten Mitarbeiter sofern noch nicht im Speicher
+							}
 						}
 					}
+					else{
+						System.out.println("Unbekannter Befehl! Mögliche Befehle: load force, load merge");
+					}
+				}
+				catch(ArrayIndexOutOfBoundsException e){
+						System.out.println("Geben Sie bitte die Variante des Ladens als 2. Parameter an (load force oder load merge).");
+					}
+
+
 				}
 			}
-			catch (ArrayIndexOutOfBoundsException e){
-
-			}
-
 		}
-	}
+
+
 
 	/**
 	 * Diese Methode realisiert die Ausgabe.
@@ -162,6 +162,23 @@ public class Container {
 		// ausgeben. Allerdings weiss der Student hier nicht weiter
 
 		// [Sortierung ausgelassen]
+
+		// [Variante mit forEach-Methode / Streams (--> Kapitel 9, Lösung Übung Nr. 2)?
+		//  Gerne auch mit Beachtung der neuen US1
+		// (Filterung Abteilung = "ein Wert (z.B. Marketing)"
+		List<String> filterListe = listEmployees.stream()		// Filter nach Rennfahrer und ID < 100
+				.filter( employee -> employee.getRolle().equals("Rennfahrer") )
+				.filter (employee ->  employee.getPid() < 100 )
+				.map( employee -> employee.getName() )
+				.collect(Collectors.toList());
+		List<Employee> tmp = new ArrayList<>();
+		for (Employee employee : listEmployees) {
+			for (int i = 0; i < filterListe.size(); i++);
+			if(filterListe.contains(employee.getName())) {		// falls Liste Name eines Employees enthält
+				tmp.add(employee);
+			}
+		}
+		listEmployees = tmp;
 		try {
 			bubbleSort(listEmployees, listEmployees.size(), orderBy);
 		}
@@ -176,7 +193,7 @@ public class Container {
 		}
 		else {
 			for (Employee employee : listEmployees) {
-				for (int j = 0; j < employee.getExpertise().size(); j++) {    // Expertisengrad von i bekommen
+				for (int j = 0; j < employee.getExpertise().size(); j++) {    // Expertisengrad von j bekommen
 					if (orderBy.equals(employee.getExpertise().get(j))) {
 						int grad = employee.getExpertisenGrad().get(j);
 						System.out.println("Expertise: " + orderBy + ", Expertisengrad: " + grad + " | " + employee.toString());
@@ -184,14 +201,8 @@ public class Container {
 					}
 				}
 			}
-		// [Variante mit forEach-Methode / Streams (--> Kapitel 9, Lösung Übung Nr. 2)?
-		//  Gerne auch mit Beachtung der neuen US1
-		// (Filterung Abteilung = "ein Wert (z.B. Marketing)"
-		List<String> listeMitNamen = this.liste.stream()
-				.filter( employee -> employee.getAbteilung().equals("Marketing") )
-				.filter (employee ->  employee.getPid() > 100 )
-				.map( employee -> employee.getName() )
-				.collect(Collectors.toList()); // reduce
+
+
 
 	}
 	static void bubbleSort(List<Employee> employees, int n, String orderBy) throws ContainerException {
@@ -206,7 +217,7 @@ public class Container {
 		{
 			if (orderBy.equals("dump")) {
 				if (employees.get(i).compareTo(employees.get(i + 1)) >= 1)      //prüft ob die ID von i > i+1
-					{                           // falls nicht wird die Position getauscht
+					{                           								// falls ja wird die Position getauscht
 						Collections.swap(employees, i, i + 1);
 					}
 				}
@@ -226,6 +237,12 @@ public class Container {
 					}
 					if(v2>v1){
 						Collections.swap(employees, i, i + 1);				// falls nötig tauschen
+					}
+					if(v2==v1){															// falls gleich Sortierung nach ID
+						if (employees.get(i).compareTo(employees.get(i + 1)) >= 1)      //prüft ob die ID von i > i+1
+						{                           									// falls ja wird die Position getauscht
+							Collections.swap(employees, i, i + 1);
+						}
 					}
 				}
 			}
