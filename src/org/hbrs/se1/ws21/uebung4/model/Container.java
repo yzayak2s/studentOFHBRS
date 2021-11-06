@@ -77,7 +77,7 @@ public class Container {
 		Scanner scanner = new Scanner( System.in );
 
 		// Ausgabe eines Texts zur Begruessung
-		System.out.println("Employee-Tool V1.1 by Julius P. (dedicated to all my friends)");
+		System.out.println("Employee-Tool V1.1 by yzayakh & rfalke2s");
 
 		while ( true ) {
 
@@ -94,7 +94,7 @@ public class Container {
 			}
 			// Auswahl der bisher implementierten Befehle:
 			if ( strings[0].equals("dump") ) {
-				startAusgabe();
+				startAusgabe(liste, "dump");
 
 			}
 			// Auswahl der bisher implementierten Befehle:
@@ -114,47 +114,76 @@ public class Container {
 			}
 			if (  strings[0].equals("search")  ) {
 				// Beispiel-Code
+				List<Employee> tmp = new ArrayList<>();
+				for(Employee employee: liste){
+					for(int i = 0; i < employee.getExpertise().size(); i++){
+						if (strings[1].equals(employee.getExpertise().get(i))){
+							tmp.add(employee);
+						}
+					}
+				}
+				startAusgabe(tmp, strings[1]);
 			}
-			if (  strings[0].equals("load")&&strings[1].equals("force")  ) {
-				// Beispiel-Code
-				liste = null;
-				this.load();
+
+			try {
+				if (  strings[0].equals("load")&&strings[1].equals("force")  ) {
+					liste = null;
+					this.load();
+				}
 			}
-			if (  strings[0].equals("load")&&strings[1].equals("merge")  ) {
-				// Beispiel-Code
-				List<Employee> tmp = getCurrentList();
-				load();
-				for(Employee employee: tmp){
-					if (liste.contains(employee)){ }
-					else{
-						liste.add(employee);
+			catch (ArrayIndexOutOfBoundsException e) {
+				System.out.println("Geben sie bitte die Variante des Ladens als 2. Parameter an (load force oder load merge).");
+			}
+			try {
+				if (  strings[0].equals("load")&&strings[1].equals("merge")  ) {
+					List<Employee> tmp = getCurrentList();	// zwischenzeitliches speichern der aktuellen Liste im Container
+					load();									// ersetzen der liste durch die liste im File
+					for(Employee employee: tmp){
+						if (liste.contains(employee)){ }
+						else{
+							liste.add(employee);			// hinzufügen der temporär gespeicherten Mitarbeiter sofern noch nicht im Speicher
+						}
 					}
 				}
 			}
+			catch (ArrayIndexOutOfBoundsException e){
 
-		} // Ende der Schleife
+			}
+
+		}
 	}
 
 	/**
 	 * Diese Methode realisiert die Ausgabe.
 	 */
-	public void startAusgabe() {
+	public void startAusgabe(List<Employee> listEmployees, String orderBy) {
 
 		// Hier möchte Herr P. die Liste mit einem eigenen Sortieralgorithmus sortieren und dann
 		// ausgeben. Allerdings weiss der Student hier nicht weiter
 
 		// [Sortierung ausgelassen]
 		try {
-			bubbleSort(liste, liste.size());
+			bubbleSort(listEmployees, listEmployees.size(), orderBy);
 		}
 		catch (ContainerException e){
 			System.out.println("Der Container ist leer!");
 		}
 		// Klassische Ausgabe ueber eine For-Each-Schleife
-		for (Employee employee : liste) {
-			System.out.println(employee.toString());
+		if (orderBy.equals("dump")){
+			for (Employee employee : listEmployees) {
+				System.out.println(employee.toString());
+			}
 		}
-
+		else {
+			for (Employee employee : listEmployees) {
+				for (int j = 0; j < employee.getExpertise().size(); j++) {    // Expertisengrad von i bekommen
+					if (orderBy.equals(employee.getExpertise().get(j))) {
+						int grad = employee.getExpertisenGrad().get(j);
+						System.out.println("Expertise: " + orderBy + ", Expertisengrad: " + grad + " | " + employee.toString());
+						}
+					}
+				}
+			}
 		// [Variante mit forEach-Methode / Streams (--> Kapitel 9, Lösung Übung Nr. 2)?
 		//  Gerne auch mit Beachtung der neuen US1
 		// (Filterung Abteilung = "ein Wert (z.B. Marketing)"
@@ -165,24 +194,44 @@ public class Container {
 				.collect(Collectors.toList()); // reduce
 
 	}
-	static void bubbleSort(List<Employee> employees, int n) throws ContainerException {
-		if (n==0)
-		{
+	static void bubbleSort(List<Employee> employees, int n, String orderBy) throws ContainerException {
+		if (n == 0) {
 			throw new ContainerException("Container Empty");
 		}
 		if (n == 1)                     //passes are done
 		{
 			return;
 		}
-		for (int i=0; i<n-1; i++)       //iteration through unsorted elements
+		for (int i = 0; i < n - 1; i++)       //iteration through unsorted elements
 		{
-			if (employees.get(i).compareTo(employees.get(i+1))>=1)      //prüft ob die ID von i > i+1
-			{                           // falls nicht wird die Position getauscht
-				Collections.swap(employees, i, i+1);
+			if (orderBy.equals("dump")) {
+				if (employees.get(i).compareTo(employees.get(i + 1)) >= 1)      //prüft ob die ID von i > i+1
+					{                           // falls nicht wird die Position getauscht
+						Collections.swap(employees, i, i + 1);
+					}
+				}
+			else {   // order by Keyword
+				for (Employee employee : employees) {
+					int v1 = 0;
+					int v2 = 0;
+					for (int j = 0; j < employees.get(i).getExpertise().size(); j++) {	// Expertisengrad von i bekommen
+						if (orderBy.equals(employees.get(i).getExpertise().get(j))) {
+							v1 = employees.get(i).getExpertisenGrad().get(j);
+						}
+					}
+					for (int k = 0; k < employees.get(i+1).getExpertise().size(); k++) {	// Expertisengrad von i+1 bekommen
+						if (orderBy.equals(employees.get(i+1).getExpertise().get(k))){
+							v2 = employees.get(i+1).getExpertisenGrad().get(k);
+						}
+					}
+					if(v2>v1){
+						Collections.swap(employees, i, i + 1);				// falls nötig tauschen
+					}
+				}
 			}
-		}
 
-		bubbleSort(employees, n-1);           //one pass done, proceed to the next
+			bubbleSort(employees, n - 1, orderBy);           //one pass done, proceed to the next
+		}
 	}
 
 	/*
@@ -190,7 +239,7 @@ public class Container {
 	 * inklusive ihrer gespeicherten Employee-Objekte gespeichert.
 	 * 
 	 */
-	private void store() throws ContainerException {
+	private void store() throws ContainerException{
 		ObjectOutputStream oos = null;
 		FileOutputStream fos = null;
 		try {

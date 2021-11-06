@@ -1,6 +1,7 @@
 package org.hbrs.se1.ws21.uebung4.model;
 
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Employee implements java.io.Serializable, Comparable<Employee>, Member {
@@ -10,9 +11,8 @@ public class Employee implements java.io.Serializable, Comparable<Employee>, Mem
     private Integer pid;
     private String abteilung;
     private String rolle;
-    private List<Object> expertise1 = null;
-    private List<Object> expertise2 = null;
-    private List<Object> expertise3 = null;
+    private List<Object> expertise = new ArrayList<>();
+    private List<Integer> expertisenGrad = new ArrayList<>();
 
     public String getAbteilung() {
         return abteilung;
@@ -54,28 +54,20 @@ public class Employee implements java.io.Serializable, Comparable<Employee>, Mem
         this.rolle = rolle;
     }
 
-    public List<Object> getExpertise1() {
-        return expertise1;
+    public List<Object> getExpertise() {
+        return expertise;
     }
 
-    public void setExpertise1(List<Object> expertise1) {
-        this.expertise1 = expertise1;
+    public void setExpertise(List<Object> expertise) {
+        this.expertise = expertise;
     }
 
-    public List<Object> getExpertise2() {
-        return expertise2;
+    public List<Integer> getExpertisenGrad() {
+        return expertisenGrad;
     }
 
-    public void setExpertise2(List<Object> expertise2) {
-        this.expertise2 = expertise2;
-    }
-
-    public List<Object> getExpertise3() {
-        return expertise3;
-    }
-
-    public void setExpertise3(List<Object> expertise3) {
-        this.expertise3 = expertise1;
+    public void setExpertisenGrad(List<Integer> expertisenGrad) {
+        this.expertisenGrad = expertisenGrad;
     }
 
     public String toString(){

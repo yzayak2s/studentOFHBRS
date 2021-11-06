@@ -20,25 +20,25 @@ public static Employee eingabeDialog() {
     System.out.print("Geben Sie bitte die Abteilung des Mitarbeiters ein, falls vorhanden (sonst n/a): ");
     employee.setAbteilung(sc.next());
     List<Object> employeeExpertise = new ArrayList<Object>();
+    List<Integer> employeeExpertisenGrad = new ArrayList<>();
     for (int i = 0; i < 3; ++i) {
-        System.out.print("Wollen Sie dem Mitarbeiter eine Expertise zuweisen? (Ja/Nein): ");
-        String entscheidung = sc.next().toUpperCase(); // Zeichenkette einlesen
+        String entscheidung;
+        if(i==0){
+            System.out.print("Wollen Sie dem Mitarbeiter eine Expertise zuweisen? (Ja/Nein): ");
+            entscheidung = sc.next().toUpperCase(); // Zeichenkette einlesen
+        }
+        else {
+            System.out.print("Wollen Sie dem Mitarbeiter eine weitere Expertise zuweisen? (Ja/Nein): ");
+             entscheidung = sc.next().toUpperCase(); // Zeichenkette einlesen
+        }
         if (entscheidung.equals("JA")) {
             System.out.print("Geben Sie bitte die Bezeichnung der Expertise des Mitarbeiters ein: ");
             String expertise = sc.next(); // Zeichenkette einlesen
             System.out.print("Geben Sie bitte den Grad der Expertise des Mitarbeiters ein: ");
             int expertisenGrad = sc.nextInt(); // Zeichenkette einlesen
             employeeExpertise.add(i, expertise);
-            employeeExpertise.add(i, expertisenGrad);
-            if (i == 0) {
-                employee.setExpertise1(employeeExpertise);
-            }
-            if (i == 1) {
-                employee.setExpertise2(employeeExpertise);
-            }
-            if (i == 2) {
-                employee.setExpertise3(employeeExpertise);
-            }
+            employeeExpertisenGrad.add(i, expertisenGrad);
+
         } else if (entscheidung.equals("NEIN")) {
             break;
         } else{
@@ -47,6 +47,8 @@ public static Employee eingabeDialog() {
         }
 
     }
+    employee.setExpertise(employeeExpertise);
+    employee.setExpertisenGrad(employeeExpertisenGrad);
     //sc.close(); // Scanner schliessen
     // (Eingabe beenden)
     return employee;
