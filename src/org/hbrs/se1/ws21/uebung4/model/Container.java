@@ -157,12 +157,6 @@ public class Container {
 	 * Diese Methode realisiert die Ausgabe.
 	 */
 	public void startAusgabe(List<Employee> listEmployees, String orderBy) {
-
-		// Hier möchte Herr P. die Liste mit einem eigenen Sortieralgorithmus sortieren und dann
-		// ausgeben. Allerdings weiss der Student hier nicht weiter
-
-		// [Sortierung ausgelassen]
-
 		// [Variante mit forEach-Methode / Streams (--> Kapitel 9, Lösung Übung Nr. 2)?
 		//  Gerne auch mit Beachtung der neuen US1
 		// (Filterung Abteilung = "ein Wert (z.B. Marketing)"
