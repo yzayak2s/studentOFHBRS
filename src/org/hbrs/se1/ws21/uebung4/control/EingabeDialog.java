@@ -69,7 +69,6 @@ public static Employee eingabeDialog() throws Exception {
     return employee;
     }
     public static String setName(String name) throws Exception{
-        System.out.println(name);
         double userInputDouble = 0;
         while (true) {
 

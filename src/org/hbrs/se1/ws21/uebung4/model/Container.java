@@ -132,9 +132,30 @@ public class Container {
 						List<Employee> tmp = getCurrentList();    // zwischenzeitliches speichern der aktuellen Liste im Container
 						load();                                    // ersetzen der liste durch die liste im File
 						for (Employee employee : tmp) {
-							if (liste.contains(employee)) {
-							} else {
-								liste.add(employee);            // hinzufügen der temporär gespeicherten Mitarbeiter sofern noch nicht im Speicher
+							int counter = 0;
+							int tempID = employee.getPid();
+							for(Employee e: Container.getInstance().getCurrentList()) {
+								if(e.getPid()!= tempID){
+									counter++;
+								}
+							}
+							if (counter==Container.getInstance().getCurrentList().size()) {
+								liste.add(employee);   // hinzufügen der temporär gespeicherten Mitarbeiter sofern noch nicht im Speicher
+							}
+							else {
+								System.out.println("ID: " + tempID + " bereits vergeben! Wollen sie die ID überschreiben?");
+								Scanner sc = new Scanner(System.in);
+								if(sc.next().toUpperCase().equals("JA")) {
+									for (Employee e : liste) {
+										if (e.getPid() == tempID) {
+											liste.remove(e);		// Element mit derselben Nummer löschen
+											liste.add(employee);	// Das Element aus dem File hinzufügen
+											break;
+										}
+										else{}
+									}
+								}
+								else {}
 							}
 						}
 					}
