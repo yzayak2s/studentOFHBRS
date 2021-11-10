@@ -21,10 +21,12 @@ public class Application implements GenericInterface {
         System.out.println("Hello from Static-Method in Class");
     }
     
-    @Override
+
 	public void printState() {
     	// Default-Methode kann ueberschrieben werden!
 		System.out.println("Hello from overridden Method");
+
+		// Aufruf der Methode aus dem Interface
 		GenericInterface.super.printState();
 	}
 
@@ -34,7 +36,8 @@ public class Application implements GenericInterface {
         // Aufruf der überschriebenen Methode 
         my.getName();
         
-        //Aufruf der Default-Methode aus Interface
+        // Aufruf der Default-Methode aus Klasse
+        // (die dann die Methode des Interface aufruft)
         my.printState();
         
         // Aufruf der statischen Methode aus Interface
