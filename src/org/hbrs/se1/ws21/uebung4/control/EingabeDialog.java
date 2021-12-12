@@ -1,20 +1,35 @@
 package org.hbrs.se1.ws21.uebung4.control;
 
-import org.hbrs.se1.ws21.uebung2.Container;
+import org.hbrs.se1.ws21.uebung4.model.Container;
+import org.hbrs.se1.ws21.uebung4.model.ContainerException;
 import org.hbrs.se1.ws21.uebung4.model.Employee;
 
 import java.util.*;
 
 public class EingabeDialog {
-public static Employee eingabeDialog() {
-        Employee employee = new Employee();
-        Scanner sc = new Scanner(System.in); // Tastatur-Scanner anlegen
+public static Employee eingabeDialog() throws Exception {
+    Employee employee = new Employee();
+    Scanner sc = new Scanner(System.in); // Tastatur-Scanner anlegen
+    int counter = 0;
     System.out.print("Geben Sie bitte eine Mitarbeiter ID ein: ");
-    employee.setPid(sc.nextInt());
+    int tempID = sc.nextInt();
+    for(Employee e: Container.getInstance().getCurrentList()) {
+        if(e.getPid()!= tempID){
+            counter++;
+        }
+    }
+    if (counter==Container.getInstance().getCurrentList().size()) {
+        employee.setPid(tempID);
+    }
+    else {
+        System.out.println("ID schon vergeben! Wählen Sie bitte eine andere ID.");
+        eingabeDialog();
+    }
     System.out.print("Geben Sie bitte den Vornamen des Mitarbeiters ein: ");
     employee.setVorname(sc.next());
     System.out.print("Geben Sie bitte den Nachnamen des Mitarbeiters ein: ");
-    employee.setName(sc.next());
+    String name = sc.next();
+    employee.setName(EingabeDialog.setName(name));
     System.out.print("Geben Sie bitte ein, welche Rolle der Mitarbeiter im Unternehmen hat: ");
     employee.setRolle(sc.next());
     System.out.print("Geben Sie bitte die Abteilung des Mitarbeiters ein, falls vorhanden (sonst n/a): ");
@@ -53,4 +68,27 @@ public static Employee eingabeDialog() {
     // (Eingabe beenden)
     return employee;
     }
+    public static String setName(String name) throws Exception{
+        double userInputDouble = 0;
+        while (true) {
+
+            Scanner sc = new Scanner(System.in);
+            try {
+                userInputDouble = Double.parseDouble(name);     // double da man damit int auch direkt behandelt
+                throw new ContainerException("Ungültiges Format: Zahl ("+userInputDouble+")");
+
+            }
+            catch (ContainerException e) {
+                e.printStackTrace();
+                System.out.print("Geben Sie bitte den richtigen Nachnamen des Mitarbeiters ein: ");
+                name = sc.next();
+            }
+            catch (NumberFormatException ignore) {
+                break;
+
+            }
+        }
+    return name;
+    }
 }
+
