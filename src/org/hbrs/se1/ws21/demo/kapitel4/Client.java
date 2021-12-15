@@ -6,10 +6,11 @@ public class Client {
 	 *
 	 * @author sascha
 	 * Die Klasse Client hat eine Abhänigkeit zur Klasse Application.
-	 * Diese kann aus drei Gruenden bestehen:
+	 * Diese kann aus vier Gruenden bestehen:
 	 * 1. Abhängigkeit über eine Instanzvariable (Abhängigkeit Nr. 1)
 	 * 2. Abhängigkeit über einer lokalen Variable innerhalb einer Methode (Abhängigkeit Nr. 2)
 	 * 3. Abhängigkeit über ein statisches Element (hier: eine statische Methode) (Abhängigkeit Nr. 3)
+	 * 4. Verwendung in der Signatur einer Methode
 	 */
     
     // Abhängigkeit Nr. 1
@@ -23,5 +24,10 @@ public class Client {
         Application.log();
         
     }
+
+    // Abhängigkeit Nr. 4
+    public void amethod (Application app) {
+
+	}
     
 }
