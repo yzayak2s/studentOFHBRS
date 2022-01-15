@@ -1,5 +1,5 @@
 package org.hbrs.se1.ws21.uebung4.prototype;
-
+/*
 public class DumpCommand implements Command {
     @Override
     public void execute() {
@@ -12,3 +12,4 @@ public class DumpCommand implements Command {
 
     }
 }
+*/

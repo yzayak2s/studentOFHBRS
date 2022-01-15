@@ -20,7 +20,8 @@ public class ReiseAnbieterAdapter {
         q.convertParameter(s, q);
         return s;
     }
-
+}
+*/
     
 }
 
