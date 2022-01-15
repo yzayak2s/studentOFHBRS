@@ -7,8 +7,7 @@ public enum TextDocumentEncoding {
     UTF16,
     UTF32
     }
-
-public class Encoding {
+    class Encoding {
     private int bytes;
     public int getBytes(TextDocumentEncoding encoding, String string) {
         TextDocumentEncoding UTF = encoding;
