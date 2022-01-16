@@ -66,6 +66,7 @@ public class MyPrettyRectangleTest {
 	public void testGetCenter(){
 		// Erster Test, um die Korrektheit der Methode getCenter() zu ueberpruefen
 		assertEquals( new MyPoint(1.5, 2.0), left.getCenter() );
+		assertTrue(left.getCenter().equals(new MyPoint(1.5, 2.0)));
 		
 		// Hier sollten sie die weiteren Tests einfuegen, welche die errechneten Mittelpunkte der Rechtecke 
 		// right, middle und somewhere mit den tatsaechlichen Mittelpunkten vergleicht.

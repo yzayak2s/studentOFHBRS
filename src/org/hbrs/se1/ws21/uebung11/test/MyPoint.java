@@ -15,11 +15,8 @@ public class MyPoint {
     public double getY() {
         return y;
     }
-    @Override
+
     public boolean equals(MyPoint point) {
-        if (this.x == point.x && this.y == point.y) {
-            return true;
-        }
-        return false;
+        return this.x == point.x && this.y == point.y;
     }
 }
