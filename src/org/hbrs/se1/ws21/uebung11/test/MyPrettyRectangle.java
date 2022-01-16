@@ -19,6 +19,15 @@ public class MyPrettyRectangle {
     }
 
     public MyPoint getCenter() {
+
         return new MyPoint((this.x1+this.x2)/2,(this.y1+this.y2)/2);
+    }
+
+    public double getArea(MyPrettyRectangle rectangle){
+        return (rectangle.x2-rectangle.x1)*(rectangle.y2-rectangle.y1);
+    }
+
+    public double getPerimeter(MyPrettyRectangle rectangle){
+        return 2*((rectangle.x2-rectangle.x1)+(rectangle.y2-rectangle.y1));
     }
 }
