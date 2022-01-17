@@ -16,7 +16,18 @@ public class MyPoint {
         return y;
     }
 
-    public boolean equals(MyPoint point) {
-        return this.x == point.x && this.y == point.y;
+    @Override
+    public boolean equals(Object point){
+        if(point == null){
+            return false;
+        }
+        if(!(point instanceof MyPoint)){
+            return false;
+        }
+        MyPoint myPoint = (MyPoint) point;
+        return this.x == myPoint.x && this.y == myPoint.y;
     }
+    //public boolean equals(MyPoint point) {
+    //    return this.x == point.x && this.y == point.y;
+    //}
 }

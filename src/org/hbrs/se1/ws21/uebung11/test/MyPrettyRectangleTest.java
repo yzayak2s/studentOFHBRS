@@ -96,6 +96,11 @@ public class MyPrettyRectangleTest {
 		// Weitere Infos: http://stackoverflow.com/questions/7554281/junit-assertions-make-the-assertion-between-floats
         //
         // [ihr Code]
+		// hier stellen wir ein erlaubtes Delta 0.0001 bereit fuer die Rundungsgenauigkeit
+		assertEquals(6, left.getArea(left),0.0001);
+		assertEquals(1, middle.getArea(middle),0.0001);
+		assertEquals(12, right.getArea(right),0.0001);
+		assertEquals(3, somewhere.getArea(somewhere),0.0001);
 
 	}
 
@@ -116,6 +121,10 @@ public class MyPrettyRectangleTest {
 		// Weitere Infos: http://stackoverflow.com/questions/7554281/junit-assertions-make-the-assertion-between-floats
 		//
         // [ihr Code]
+		assertEquals(10, left.getPerimeter(left),0.0001);
+		assertEquals(4, middle.getPerimeter(middle),0.0001);
+		assertEquals(14, right.getPerimeter(right),0.0001);
+		assertEquals(8, somewhere.getPerimeter(somewhere),0.0001);
 				
 	}
 	
@@ -131,18 +140,34 @@ public class MyPrettyRectangleTest {
 		//
 		// [ihr Code]
 		MyPrettyRectangle other = left;
+		//assertSame(other, left);
+		//assertNotSame(middle, left);
+		//assertNotSame(right, left);
+		//assertNotSame(somewhere, left);
 
 		
 		// Bitte drei Assertions hinzufuegen, um die Gleichheit von Rechteck-Objekten zu ueberpruefen. Bitte nur die Assertion 
 		// assertTrue verwenden:
         //
         // [ihr Code]
+		//MyPrettyRectangle right = new MyPrettyRectangle(0.0, 1.0, 3.0, 3.0);
+		assertTrue(left.equals(right));
+		//System.out.println(right);
+		//System.out.println(left);
+		//assertTrue(middle.equals(middle));
+		//assertTrue(somewhere.equals(somewhere));
+		//assertTrue(right.equals(right));
 
 
-		// Bitte drei weitere Assertions hinzufuegen, welce die Objekt-Identitaet des Rechtecks 'left' mit allen anderen
+		// Bitte drei weitere Assertions hinzufuegen, welche die Objekt-Identitaet des Rechtecks 'left' mit allen anderen
 		// Rechtecken ueberprueft (inklusive other). Bitte hier nur die Assertions assertTrue und assertFalse verwenden.
         //
         // [ihr Code]
+		assertTrue(left == left);
+		assertFalse(left == middle);
+		assertFalse(left == right);
+		assertFalse(left == somewhere);
+		assertTrue(left == other);
 
 		
 	}
