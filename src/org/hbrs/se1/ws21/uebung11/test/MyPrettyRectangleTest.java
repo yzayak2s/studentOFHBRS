@@ -191,18 +191,24 @@ public class MyPrettyRectangleTest {
 		// Testen sie die so erhaltene Bounding Box anhand eines SOLL / IST Vergleichs.
 		// Die Methode der Klasse BoundingBoxFactory sollten sie selbst definieren und implementieren.
 		//
-		// [ihr Code] 
+		// [ihr Code]
+		BoundingBoxFactory box = new BoundingBoxFactory();
+		MyPrettyRectangle boundingbox = box.boundingbox(rect);
+
+		//asserEquals(new MyPrettyRectangle(1.0,0.0,6.0,4.0), boundingbox);
 
 		
 		// Testen sie zudem, ob ueberhaupt ein Objekt zurueckgegeben wird, d.h. der Rueckgabe-Wert ungleich NULL ist
 		// 
 		// [ihr Code]
+		assertNotNull(box.boundingbox(rect));
 
 
 		
 		// Test, ob ein leeres Array ein "Null-Rectangle" (vier mal die Koordinaten 0) zurueckliefert:
 		// 
 		// [ihr Code]
+
 		
 
 			
