@@ -1,4 +1,4 @@
-package org.hbrs.se1.ws21.uebung11.test;
+package org.hbrs.se1.ws21.solutions.uebung11.test;
 
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.BeforeEach;
