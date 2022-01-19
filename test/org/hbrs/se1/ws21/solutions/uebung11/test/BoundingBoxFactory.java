@@ -1,9 +1,11 @@
 package org.hbrs.se1.ws21.solutions.uebung11.test;
 
 public class BoundingBoxFactory {
-	public static MyPrettyRectangle getBox(MyPrettyRectangle[] rect) {
+	public static MyPrettyRectangle createBoundingBox(MyPrettyRectangle[] rect) {
 		if(rect == null) return null;
 		if (rect.length == 0) return new MyPrettyRectangle(0.0,0.0,0.0,0.0);
+
+		// Erste Lösung ;-) Erstes Rechteck entnehmen die bessere Lösung
 		double minX=100;
 		double minY=100;
 		double maxX=0; 

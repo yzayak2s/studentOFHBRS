@@ -114,10 +114,10 @@ public class MyPrettyRectangleTest {
         //
         // [ihr Code]
 
-        assertEquals( 6.0, left.getArea() );
-        assertEquals( 1.0, middle.getArea() );
-        assertEquals( 12.0, right.getArea() );
-        assertEquals( 3.0, somewhere.getArea() );
+        assertEquals( 6.0, left.getArea() , 0.0001);
+        assertEquals( 1.0, middle.getArea() , 0.0001 );
+        assertEquals( 12.0, right.getArea() , 0.0001 );
+        assertEquals( 3.0, somewhere.getArea() , 0.0001);
 
 	}
 
@@ -138,7 +138,7 @@ public class MyPrettyRectangleTest {
 		// Weitere Infos: http://stackoverflow.com/questions/7554281/junit-assertions-make-the-assertion-between-floats
 		//
         // [ihr Code]
-        assertEquals( 10.0, left.getPerimeter() );
+        assertEquals( 10.0, left.getPerimeter() , 0.0001 );
         assertEquals( 4.0, middle.getPerimeter() );
         assertEquals( 14.0, right.getPerimeter() );
         assertEquals( 8.0, somewhere.getPerimeter() );
@@ -156,12 +156,14 @@ public class MyPrettyRectangleTest {
 		// verwenden!
 		//
 		// [ihr Code]
+
 		MyPrettyRectangle other = left;
 
         assertSame(left, left);
         assertNotSame(left, middle);
         assertNotSame(left, right);
         assertNotSame(left, somewhere);
+
         assertSame(left, other);
 
 
@@ -207,11 +209,12 @@ public class MyPrettyRectangleTest {
 		//
 		// [ihr Code]
         MyPrettyRectangle ziel = new MyPrettyRectangle(1.0, 0.0, 6.0, 4.0);
-        MyPrettyRectangle box = BoundingBoxFactory.getBox(rect);
-        assertEquals(ziel, box);
+        MyPrettyRectangle box = BoundingBoxFactory.createBoundingBox(rect);
+        assertEquals( ziel, box );
 
 		
-		// Testen sie zudem, ob ueberhaupt ein Objekt zurueckgegeben wird, d.h. der Rueckgabe-Wert ungleich NULL ist
+		// Testen sie zudem, ob ueberhaupt ein Objekt zurueckgegeben wird,
+        // d.h. der Rueckgabe-Wert ungleich NULL ist
 		// 
 		// [ihr Code]
         assertNotNull(box);
@@ -221,15 +224,15 @@ public class MyPrettyRectangleTest {
 		// 
 		// [ihr Code]
         MyPrettyRectangle[] emptyRect = { };
-        MyPrettyRectangle nBox = BoundingBoxFactory.getBox( emptyRect );
+        MyPrettyRectangle nBox = BoundingBoxFactory.createBoundingBox( emptyRect );
         MyPrettyRectangle zerroRect = new MyPrettyRectangle(0.0, 0.0, 0.0, 0.0);
-        assertEquals(zerroRect, nBox);
+        assertEquals(zerroRect, nBox );
 
 			
 		// Test, ob die Übergabe eines NULL-Werts erfolgreich abgefangen wurde (Rueckgabe == NULL!)
 		// 
 		// [ihr Code]
-        MyPrettyRectangle nullBox = BoundingBoxFactory.getBox(null);
+        MyPrettyRectangle nullBox = BoundingBoxFactory.createBoundingBox(null);
         assertNull(nullBox);
 		
 

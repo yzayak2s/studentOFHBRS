@@ -6,8 +6,8 @@ public class MyPrettyRectangle {
 	private MyPoint ReO;
 	
 	public MyPrettyRectangle(double d, double e, double f, double g) {
-		LiU = new MyPoint(d, e);
-		ReO = new MyPoint(f, g);
+			LiU = new MyPoint(d, e);
+			ReO = new MyPoint(f, g);
 	}
 
 	public boolean contains(MyPrettyRectangle other) {
