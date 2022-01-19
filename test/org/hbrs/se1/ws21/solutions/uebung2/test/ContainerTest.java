@@ -45,6 +45,7 @@ class ContainerTest {
         // Testfall 2 - Pruefen, ob vier Objekte eingefuegt wurden
         assertEquals ( 4 , container.size() ,"Testfall 2 - Prüfen, ob vier Objekte eingefuegt wurden"   );
 
+
         try {
             container.addMember(r5);
         } catch (ContainerException e) {
