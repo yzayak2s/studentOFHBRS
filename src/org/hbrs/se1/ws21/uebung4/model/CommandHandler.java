@@ -1,10 +1,12 @@
-package org.hbrs.se1.ws21.uebung4.prototype;
+package org.hbrs.se1.ws21.uebung4.model;
 
 import java.util.HashMap;
 import java.util.Scanner;
 import java.util.Stack;
 
-
+/*
+ * Invoker (laut Command Pattern)
+ */
 public class CommandHandler {
 	
 	public void startEingabe()  {
@@ -32,12 +34,14 @@ public class CommandHandler {
 			Command command = commandsMap.get( strInput );
 			command.execute();
 
-			// Stack
+			// Stack, zur Abspeicherung der ausgeführten Commandos
 			Stack<Command> stack = new Stack();
 			stack.push(command);
 
-			// Ergänzungen:
-			stack.pop().undo();
+			// Ergänzungen: Rückgängig-Machung des letzten Befehls:
+			Command command1 = stack.pop();
+			System.out.println("LOG: Command wurde zurückgeführt!");
+			command1.undo();
 
 
 

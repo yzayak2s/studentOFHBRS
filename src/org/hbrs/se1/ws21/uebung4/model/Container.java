@@ -89,8 +89,15 @@ public class Container {
 			String[] strings = strInput.split(" ");
 
 			// 	Falls 'help' eingegeben wurde, werden alle Befehle ausgedruckt
-			if ( strings[0].equals("help") ) {
-				System.out.println("Folgende Befehle stehen zur Verfuegung: help, dump....");
+			if ( strings[0].equals("help") ) { //Unterteilung zwischen Sprints und Mitarbeiter (Befehle)
+				System.out.println("Folgende Befehle stehen zur Verfuegung: " +
+						"dump Zeigt alle Mitarbeiter an\n, " +
+						"enter [new sprint]|[expertise]|[start]|[end] Erstellen eines Mitarbeiters\n, " +
+						"delete [start]\n, " +
+						"store Speicherung der erstellten Mitarbeiter\n, " +
+						"exit Anwendung beenden\n, " +
+						"search Suche nach Expertisen\n, " +
+						"load force|merge Laden aller persistenten Mitarbeiter|Laden aller Mitarbeiter die sowohl persistent als auch flüchtig gespeichert sind...");
 			}
 			// Auswahl der bisher implementierten Befehle:
 			if (strings[0].equals("dump")) {
