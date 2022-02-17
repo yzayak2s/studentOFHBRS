@@ -9,7 +9,7 @@ import java.util.Stack;
  */
 public class CommandHandler {
 	
-	public void startEingabe()  {
+	public static void startEingabe()  {
 
 		String strInput = null;
 
@@ -17,6 +17,13 @@ public class CommandHandler {
 		HashMap<String, Command> commandsMap = new HashMap();
 		commandsMap.put( "help" , new HelpCommand() );
 		commandsMap.put(  "dump"  , new DumpCommand() );
+		commandsMap.put(  "enter"  , new EnterCommand() );
+		commandsMap.put(  "load force"  , new LoadCommand("force") );
+		commandsMap.put(  "load merge"  , new LoadCommand("merge") );
+		//Default Parameter von load
+		//commandsMap.put(  "dump"  , new DumpCommand() );
+		//commandsMap.put(  "dump"  , new DumpCommand() );
+		//commandsMap.put(  "dump"  , new DumpCommand() );
 
 		// Initialisierung des Eingabe-View
 		Scanner scanner = new Scanner( System.in );
@@ -39,9 +46,9 @@ public class CommandHandler {
 			stack.push(command);
 
 			// Ergänzungen: Rückgängig-Machung des letzten Befehls:
-			Command command1 = stack.pop();
-			System.out.println("LOG: Command wurde zurückgeführt!");
-			command1.undo();
+			//Command command1 = stack.pop();
+		//	System.out.println("LOG: Command wurde zurückgeführt!");
+		//	command1.undo();
 
 
 

@@ -7,6 +7,7 @@ public class DumpCommand implements Command {
     public void execute() {
         // Hier: der Container ist der Receiver
         List<Employee> liste = Container.getInstance().getCurrentList();
+        Container.getInstance().startAusgabe(liste, "dump");
         // --> EmployeeView aufrufen...
     }
 
