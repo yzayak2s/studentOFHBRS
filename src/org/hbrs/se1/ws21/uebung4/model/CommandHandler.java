@@ -20,6 +20,7 @@ public class CommandHandler {
 		commandsMap.put(  "enter"  , new EnterCommand() );
 		commandsMap.put(  "load force"  , new LoadCommand("force") );
 		commandsMap.put(  "load merge"  , new LoadCommand("merge") );
+		commandsMap.put(  "load"  , new LoadCommand("none") );
 		//Default Parameter von load
 		//commandsMap.put(  "dump"  , new DumpCommand() );
 		//commandsMap.put(  "dump"  , new DumpCommand() );

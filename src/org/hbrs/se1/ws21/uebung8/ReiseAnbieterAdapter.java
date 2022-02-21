@@ -1,7 +1,7 @@
 package org.hbrs.se1.ws21.uebung8;
 
 public class ReiseAnbieterAdapter {
-
+/*
     SuchErgebnis suche(SuchAuftrag r){
         for (Object : r
              ) {
