@@ -29,6 +29,7 @@ public class Container {
 	 
 	// Interne ArrayList zur Abspeicherung der Objekte vom Type Employee
 	private List<Employee> liste = null;
+	private List<Sprint> sprintList = null;
 	
 	// Statische Klassen-Variable, um die Referenz
 	// auf das einzige Container-Objekt abzuspeichern
@@ -168,7 +169,7 @@ public class Container {
 		//  Gerne auch mit Beachtung der neuen US1
 		// (Filterung Abteilung = "ein Wert (z.B. Marketing)"
 		List<String> filterListe = listEmployees.stream()		// Filter nach Rennfahrer und ID < 100
-				.filter( employee -> employee.getRolle().equals("Rennfahrer") )
+		//		.filter( employee -> employee.getRolle().equals("Rennfahrer") )
 				.filter (employee ->  employee.getPid() < 100 )
 				.map( employee -> employee.getName() )
 				.collect(Collectors.toList());
@@ -366,5 +367,33 @@ public class Container {
 			}
 		}
 		return null;
+	}
+
+	public boolean checkName(Sprint sprint){
+		for(Sprint sprintFromList : sprintList){
+			if(sprint.getName().equals(sprintFromList.getName())){
+				return true;
+			}
+		} return false;
+	}
+
+	public void addSprint ( Sprint sprint ) throws ContainerException {
+		if ( checkName(sprint) == true ) {
+			ContainerException ex = new ContainerException("Sprint bereits vorhanden!");
+			throw ex;
+		}
+		sprintList.add(sprint);
+	}
+
+	public List<Sprint> getSprintList() {
+		return sprintList;
+	}
+
+	public void deleteSprintList(String sprintName){
+		for(Sprint sprintFromList : sprintList){
+			if(sprintName.equals(sprintFromList.getName())){
+				getSprintList().remove(sprintFromList);
+			}
+		}
 	}
 }

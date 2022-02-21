@@ -17,9 +17,10 @@ public class CommandHandler {
 		HashMap<String, Command> commandsMap = new HashMap();
 		commandsMap.put( "help" , new HelpCommand() );
 		commandsMap.put(  "dump"  , new DumpCommand() );
-		commandsMap.put(  "enter"  , new EnterCommand() );
-		commandsMap.put(  "load force"  , new LoadCommand("force") );
-		commandsMap.put(  "load merge"  , new LoadCommand("merge") );
+		commandsMap.put(  "enter"  , new EnterCommand("employee") );
+		commandsMap.put(  "enter new sprint"  , new EnterCommand("sprint") );
+		commandsMap.put(  "load"  , new LoadCommand("force") );
+		commandsMap.put(  "load"  , new LoadCommand("merge") );
 		commandsMap.put(  "load"  , new LoadCommand("none") );
 		//Default Parameter von load
 		//commandsMap.put(  "dump"  , new DumpCommand() );
@@ -35,11 +36,14 @@ public class CommandHandler {
 
 			// Naechster Befehl
 			strInput = scanner.nextLine();
+			String[] splited = strInput.split("\\s+");
+			System.out.println(splited[0]);
+
 
 			// KEINE IF-Anweisung oder Switch-Case-Statement mit N Zeilen
 			// Anforderung: Auswahl des "Kommandos" in EINER Zeile
 			// Verwendung des Command Pattern!
-			Command command = commandsMap.get( strInput );
+			Command command = commandsMap.get( splited[0] );
 			command.execute();
 
 			// Stack, zur Abspeicherung der ausgeführten Commandos
