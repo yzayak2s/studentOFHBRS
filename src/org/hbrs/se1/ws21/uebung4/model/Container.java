@@ -54,6 +54,7 @@ public class Container {
 	 */
 	private Container(){
 		liste = new ArrayList<Employee>();
+		sprintList = new ArrayList<Sprint>();
 	}
 	
 	/**
@@ -370,11 +371,11 @@ public class Container {
 	}
 
 	public boolean checkName(Sprint sprint){
-		for(Sprint sprintFromList : sprintList){
-			if(sprint.getName().equals(sprintFromList.getName())){
-				return true;
-			}
-		} return false;
+			for(Sprint sprintFromList : sprintList){
+				if(sprint.getName().equals(sprintFromList.getName())){
+					return true;
+				}
+			} return false;
 	}
 
 	public void addSprint ( Sprint sprint ) throws ContainerException {

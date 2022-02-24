@@ -6,7 +6,7 @@ import java.util.List;
 public class Sprint {
     private String name;
     private String startdate;
-    private Integer sid;
+    private Integer sid; //Sprint ID
     private String enddate;
     private List<Object> expertise = new ArrayList<>();
 
