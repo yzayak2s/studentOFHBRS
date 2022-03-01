@@ -2,17 +2,22 @@ package org.hbrs.se1.ws21.uebung4.model;
 
 import org.hbrs.se1.ws21.uebung4.control.EingabeDialog;
 
-public class EnterCommand implements Command {
-    private final String parameter;
+import java.sql.SQLOutput;
+import java.util.Arrays;
+import java.util.List;
 
-    public EnterCommand(String parameter) {
+public class EnterCommand implements Command {
+    private final String[] parameter;
+
+    public EnterCommand(String[] parameter){
         this.parameter = parameter;
     }
 
     @Override
     public void execute() {
-        switch (this.parameter){
-            case "employee" -> {
+        switch (this.parameter[1]){
+            // Mitarbeiter-Erstellung
+            case "none" -> {
                 try {
                     Container.getInstance().addEmployee(EingabeDialog.eingabeDialog());
                 } catch (Exception e) {
@@ -38,27 +43,29 @@ public class EnterCommand implements Command {
                 }
             }
             case "expertise" -> {// TODO: 24.02.22 Size-Erhöhung; dump Methode für Sprint implementieren; Siehe auskommentierten Code
-                Sprint temp_sprint = Container.getInstance().getSprintList().get(Container.getInstance().getSprintList().size()-1);
-                if (!parameter[2].equals("none")) {
-                    List<Object> currentExpertises = temp_sprint.getExpertise();
-                    currentExpertises.add(currentExpertises.size() +1, parameter[2]);
-                    temp_sprint.setExpertise(currentExpertises);
-                }
-                /*if (parameter.length -1 < 4) {
-                    String[] temp = new String[4];
-                    for (int i = 0; i < 4; i++) {
-
-                        if (i < parameter.length) {
-                            temp[i] = parameter[i];
-                        } else {
-                            temp[i] = "none";
+                List<String> moegl_expertisen = Arrays.asList("Java1","Java2","Java3","Java4","Java5","Java6","Java7",
+                        "Java8","Java9","Java10","Java11","Java12","Java13","Java14","Java15","Java16","Java17","HTML1","HTML2",
+                        "HTML3","HTML4","HTML5", "Assembler"); // moegliche Expertisen
+                String expertise_eingabe = parameter[2].replaceAll("^\"|\"$", "");
+                if (moegl_expertisen.contains(expertise_eingabe)){
+                    try {
+                        Sprint temp_sprint = Container.getInstance().getSprintList().get(Container.getInstance().getSprintList().size()-1);
+                        System.out.println(parameter[2]);
+                        System.out.println(!parameter[2].equals("none"));
+                        if (!parameter[2].equals("none")) {
+                            List<Object> currentExpertises = temp_sprint.getExpertise();
+                            currentExpertises.add(currentExpertises.size() +1, parameter[2]);
+                            temp_sprint.setExpertise(currentExpertises);
                         }
-
-                    }
-                    parameter = temp;
-
-                 */
-
+                        else {
+                            System.out.println("Geben sie bitte einen Namen der Expertise ein.");
+                        }
+                    } catch (IndexOutOfBoundsException e){
+                        System.out.println("Kein Sprint vorhanden, dem die Expertise hinzugefügt werden kann.");
+                    };
+                } else {
+                    System.out.println("Dies ist keine gültige Expertise. Geben Sie bitte eine neue ein!");
+                }
             }
             default -> System.out.println("Unbekannter Befehl! Mögliche Befehle: enter, enter new sprint, enter expertise, enter start, enter end");
         }
