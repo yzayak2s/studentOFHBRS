@@ -370,19 +370,20 @@ public class Container {
 		return null;
 	}
 
-	public boolean checkName(Sprint sprint){
+	public boolean checkName(String sprint){
 			for(Sprint sprintFromList : sprintList){
-				if(sprint.getName().equals(sprintFromList.getName())){
+				if(sprint.equals(sprintFromList.getName())){
 					return true;
 				}
 			} return false;
 	}
 
 	public void addSprint ( Sprint sprint ) throws ContainerException {
-		if ( checkName(sprint) == true ) {
+		if (checkName(sprint.getName())) {
 			ContainerException ex = new ContainerException("Sprint bereits vorhanden!");
 			throw ex;
 		}
+		sprint.setSid(sprintList.size()+1);
 		sprintList.add(sprint);
 	}
 
@@ -396,5 +397,14 @@ public class Container {
 				getSprintList().remove(sprintFromList);
 			}
 		}
+	}
+	public Sprint getSprintFromName(String sprint_name) {
+
+		for (Sprint sprintFromList : sprintList) {
+			if(sprint_name.equals(sprintFromList.getName())){
+				return sprintFromList;
+			}
+		}
+		throw new IndexOutOfBoundsException("Kein Sprint mit dem Namen"+ sprint_name +"vorhanden.");
 	}
 }

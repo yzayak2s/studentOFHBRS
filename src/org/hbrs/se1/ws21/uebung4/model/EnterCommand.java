@@ -24,7 +24,6 @@ public class EnterCommand implements Command {
                     e.printStackTrace();
                 }
             }
-            // TODO: 24.02.22 Mit dem Befehl "Enter new" gelangt man in diesem Case; Problem: mit "enter new expertise" gelangt man trotzdem noch in dem Case
             case "new" -> {
                 Sprint temp_sprint = new Sprint();
                 if (!parameter[3].equals("none") && parameter[2].equals("sprint")) {
@@ -42,19 +41,18 @@ public class EnterCommand implements Command {
                     System.out.println("Ungültiger Befehl. Beispielbefehl: enter new sprint \"SprintName\"");
                 }
             }
-            case "expertise" -> {// TODO: 24.02.22 Size-Erhöhung; dump Methode für Sprint implementieren; Siehe auskommentierten Code
+            case "expertise" -> {// TODO: 24.02.22 dump Methode für Sprint implementieren; Siehe auskommentierten Code
                 List<String> moegl_expertisen = Arrays.asList("Java1","Java2","Java3","Java4","Java5","Java6","Java7",
                         "Java8","Java9","Java10","Java11","Java12","Java13","Java14","Java15","Java16","Java17","HTML1","HTML2",
                         "HTML3","HTML4","HTML5", "Assembler"); // moegliche Expertisen
                 String expertise_eingabe = parameter[2].replaceAll("^\"|\"$", "");
                 if (moegl_expertisen.contains(expertise_eingabe)){
+                    System.out.println(Container.getInstance().getSprintList());
                     try {
                         Sprint temp_sprint = Container.getInstance().getSprintList().get(Container.getInstance().getSprintList().size()-1);
-                        System.out.println(parameter[2]);
-                        System.out.println(!parameter[2].equals("none"));
                         if (!parameter[2].equals("none")) {
                             List<Object> currentExpertises = temp_sprint.getExpertise();
-                            currentExpertises.add(currentExpertises.size() +1, parameter[2]);
+                            currentExpertises.add(currentExpertises.size(), parameter[2]);
                             temp_sprint.setExpertise(currentExpertises);
                         }
                         else {
@@ -62,11 +60,39 @@ public class EnterCommand implements Command {
                         }
                     } catch (IndexOutOfBoundsException e){
                         System.out.println("Kein Sprint vorhanden, dem die Expertise hinzugefügt werden kann.");
-                    };
+                    }
                 } else {
                     System.out.println("Dies ist keine gültige Expertise. Geben Sie bitte eine neue ein!");
                 }
             }
+            //TODO: 05.03.22  Prüfung auf gültiges Datum, bislang "XYZ" gültig
+            case "start" -> {
+                try {
+                    Sprint temp_sprint = Container.getInstance().getSprintList().get(Container.getInstance().getSprintList().size()-1);
+                    if (!parameter[2].equals("none")) {
+                        temp_sprint.setStartdate(parameter[2]);
+                    }
+                    else {
+                        System.out.println("Geben sie bitte ein gültiges Datum ein.");
+                    }
+                } catch (IndexOutOfBoundsException e){
+                    System.out.println("Kein Sprint vorhanden, dem die Expertise hinzugefügt werden kann.");
+                }
+            }
+            case "end" -> {
+                try {
+                    Sprint temp_sprint = Container.getInstance().getSprintList().get(Container.getInstance().getSprintList().size()-1);
+                    if (!parameter[2].equals("none")) {
+                        temp_sprint.setEnddate(parameter[2]);
+                    }
+                    else {
+                        System.out.println("Geben sie bitte ein gültiges Datum ein.");
+                    }
+                } catch (IndexOutOfBoundsException e){
+                    System.out.println("Kein Sprint vorhanden, dem die Expertise hinzugefügt werden kann.");
+                }
+            }
+
             default -> System.out.println("Unbekannter Befehl! Mögliche Befehle: enter, enter new sprint, enter expertise, enter start, enter end");
         }
     }

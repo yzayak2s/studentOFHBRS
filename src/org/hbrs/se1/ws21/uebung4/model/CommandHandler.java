@@ -33,19 +33,20 @@ public class CommandHandler {
 		commandsMap.put(  "enter"  , new EnterCommand(parameter) );
 		commandsMap.put(  "load"  , new LoadCommand(parameter[1]) );
 		commandsMap.put(  "show"  , new ShowCommand(parameter[1]) );
+		commandsMap.put(  "store"  , new StoreCommand(parameter[1]) );
 		//Default Parameter von load
 		//commandsMap.put(  "dump"  , new DumpCommand() );
 		//commandsMap.put(  "dump"  , new DumpCommand() );
 		//commandsMap.put(  "dump"  , new DumpCommand() );
 		return commandsMap.get(parameter[0]);
 	}
-	public static void startEingabe()  {
+	public static void startEingabe() throws ContainerException {
 
 		String strInput = null;
 
 		// Initialisierung des Eingabe-View
 		Scanner scanner = new Scanner( System.in );
-		
+
 		while ( true ) {
 			// Print the prompt
 			System.out.print("> ");
@@ -68,8 +69,8 @@ public class CommandHandler {
 
 			// Ergänzungen: Rückgängig-Machung des letzten Befehls:
 			//Command command1 = stack.pop();
-		//	System.out.println("LOG: Command wurde zurückgeführt!");
-		//	command1.undo();
+			//	System.out.println("LOG: Command wurde zurückgeführt!");
+			//	command1.undo();
 
 
 
