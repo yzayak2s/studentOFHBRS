@@ -1,9 +1,10 @@
 package org.hbrs.se1.ws21.uebung4.model;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Sprint {
+public class Sprint implements Serializable {
     private String name;
     private String startdate;
     private Integer sid; //Sprint ID

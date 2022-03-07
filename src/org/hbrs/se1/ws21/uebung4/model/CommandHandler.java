@@ -31,9 +31,9 @@ public class CommandHandler {
 		commandsMap.put( "help" , new HelpCommand() );
 		commandsMap.put(  "dump"  , new DumpCommand() );
 		commandsMap.put(  "enter"  , new EnterCommand(parameter) );
-		commandsMap.put(  "load"  , new LoadCommand(parameter[1]) );
+		commandsMap.put(  "load"  , new LoadCommand(parameter) );
 		commandsMap.put(  "show"  , new ShowCommand(parameter) );
-		commandsMap.put(  "store"  , new StoreCommand(parameter[1]) );
+		commandsMap.put(  "store"  , new StoreCommand(parameter) );
 		//Default Parameter von load
 		//commandsMap.put(  "dump"  , new DumpCommand() );
 		//commandsMap.put(  "dump"  , new DumpCommand() );
