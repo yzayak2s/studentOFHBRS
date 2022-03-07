@@ -405,6 +405,6 @@ public class Container {
 				return sprintFromList;
 			}
 		}
-		throw new IndexOutOfBoundsException("Kein Sprint mit dem Namen"+ sprint_name +"vorhanden.");
+		throw new IndexOutOfBoundsException("Kein Sprint mit dem Namen \""+ sprint_name +"\" vorhanden.");
 	}
 }

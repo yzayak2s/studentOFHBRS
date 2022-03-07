@@ -32,7 +32,7 @@ public class CommandHandler {
 		commandsMap.put(  "dump"  , new DumpCommand() );
 		commandsMap.put(  "enter"  , new EnterCommand(parameter) );
 		commandsMap.put(  "load"  , new LoadCommand(parameter[1]) );
-		commandsMap.put(  "show"  , new ShowCommand(parameter[1]) );
+		commandsMap.put(  "show"  , new ShowCommand(parameter) );
 		commandsMap.put(  "store"  , new StoreCommand(parameter[1]) );
 		//Default Parameter von load
 		//commandsMap.put(  "dump"  , new DumpCommand() );
