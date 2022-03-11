@@ -1,8 +1,6 @@
 package org.hbrs.se1.ws21.uebung1.view;
 
-import org.hbrs.se1.ws21.uebung1.control.Translator;
-import org.hbrs.se1.ws21.uebung1.control.GermanTranslator;
-import org.hbrs.se1.ws21.uebung1.control.TranslatorFactory;
+import org.hbrs.se1.ws21.uebung1.control.*;
 import org.hbrs.se1.ws21.uebung1.control.factories.TranslateFactory;
 
 /**
@@ -12,6 +10,7 @@ import org.hbrs.se1.ws21.uebung1.control.factories.TranslateFactory;
  */
 public class Client {
 
+     //private Translator translator;
     /*
      * Methode zur Ausgabe einer Zahl auf der Console
      */
@@ -28,14 +27,22 @@ public class Client {
         // Objekterzeugung
         //richtiger Code: GermanTranslator translator = TranslatorFactory.createGermanTranslator();
         Translator translator = TranslateFactory.createGermanTranslator(); // new GermanTranslator();
-        String result = translator.translateNumber(1);
 
-        translator = TranslateFactory.createSpanishTranslator();
+        String result = translator.translateNumber(aNumber);
 
         System.out.println("Das Ergebnis der Berechnung: " +
-                translator.translateNumber(aNumber));
+                "[das Ergebnis an dieser Stelle]" + result );
+
+        //translator = TranslateFactory.createEnglishTranslator();
+        //result = translator.translateNumber(aNumber);
+        //
+        //System.out.println("\nErgebnis auf Englisch: " + result );
 
     }
+
+    //public void setTranslator( Translator translator){
+    //    this.translator = translator;
+    //}
 }
 
 

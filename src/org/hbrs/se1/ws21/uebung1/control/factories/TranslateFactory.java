@@ -8,7 +8,9 @@ import org.hbrs.se1.ws21.uebung1.control.Translator;
 public class TranslateFactory {
 
     public static Translator createGermanTranslator(){
-        return new GermanTranslator();
+        GermanTranslator translator =  new GermanTranslator();
+        translator.setDate("11-11-2021");
+        return translator;
     }
 
     public static Translator createEnglishTranslator(){

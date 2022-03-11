@@ -15,11 +15,14 @@ public class GermanTranslator implements Translator {
          * @author yzayak2s rfalke2s
          *
          */
+        String result = "";
         String[] deutscheZahlenArray = {"eins", "zwei", "drei", "vier", "fünf", "sechs", "sieben", "acht", "neun", "zehn"};
         try {
             return deutscheZahlenArray[number-1];
-        } catch (Exception e) {
-            return String.format("Übersetzung der Zahl %d nicht möglich (%f)", number, version);
+        } catch (ArrayIndexOutOfBoundsException e) {
+            result = "Übersetzung der Zahl " + number + " nicht möglich! (V " + version + ")";
+        } finally {
+            return result;
         }
     }
 

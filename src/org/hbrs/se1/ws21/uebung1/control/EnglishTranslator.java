@@ -2,7 +2,7 @@ package org.hbrs.se1.ws21.uebung1.control;
 
 public class EnglishTranslator implements Translator {
 
-    public String date = "Okt/2020"; // Default-Wert
+    public String date = "Oct/2020"; // Default-Wert
 
     // Das initiale Array mit den Zahlen
     private String[] numbers = {"one" , "two", "three", "four", "five", "six", "seven", "eight", "nine", "ten"};
