@@ -7,7 +7,7 @@ public class Client {
     public static void Client(int... array){
         /*Arrays.stream(array).forEach(value -> {
             try {
-                Container.getInstance().addMember(new Mitglied(value));
+                Container.getInstance().addMember(new ConcreteMitglied(value));
             } catch (ContainerException e) {
                 e.printStackTrace();
             }

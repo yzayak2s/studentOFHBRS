@@ -2,7 +2,6 @@ package org.hbrs.se1.ws21.uebung2;
 
 import org.hbrs.se1.ws21.uebung3.persistence.*;
 
-import java.nio.channels.ConnectionPendingException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -51,8 +50,8 @@ public final class Container{
 
     private List<Member> list; // instanzvariablen alle private setzen
 
-    public static Mitglied newMember(int number){
-        return new Mitglied(number);
+    public static ConcreteMitglied newMember(int number){
+        return new ConcreteMitglied(number);
     }
 
     public void addMember(Member member) throws ContainerException { // (geprüfte Exception)

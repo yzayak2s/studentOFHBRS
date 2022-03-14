@@ -37,12 +37,13 @@ public class TestFactory {
         String test = "Übersetzung der Zahl 11 nicht möglich! (V " + Translator.version + ")";
         assertEquals(test, this.translator.translateNumber(11));
 
+        // Negativer Test
         String test2 = "Übersetzung der Zahl -11 nicht möglich! (V " + Translator.version + ")";
         assertEquals(test2, this.translator.translateNumber(-11));
 
+        // Negativer Test
         String test3 = "Übersetzung der Zahl 0 nicht möglich! (V " + Translator.version + ")";
         assertEquals(test3, this.translator.translateNumber(0));
-
 
         //String erg_case1 = translator.translateNumber(8);
         //String erg_case2 = translator.translateNumber(12);
