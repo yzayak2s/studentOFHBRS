@@ -56,11 +56,21 @@ public final class Container{
 
     public void addMember(Member member) throws ContainerException { // (geprüfte Exception)
         // StackTrace: "„Das Member-Objekt mit der ID [hier die ID des Objekts] ist bereits vorhanden!“
-        int id = member.getID();
-        if (list.contains(member)){
+        if (contains(member) == true){
             throw new ContainerException(member);
         }
         list.add(member);
+    }
+
+    private boolean contains(Member member){
+        Integer ID = member.getID();
+        for (Member rec : list) {
+            // wichtig: Check auf die Values innerhalb der Integer-Objekte!
+            if( rec.getID().intValue() == ID.intValue()){
+                return true;
+            }
+        }
+        return false;
     }
 
     public String deleteMember(int id){

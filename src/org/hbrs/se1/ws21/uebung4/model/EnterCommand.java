@@ -9,6 +9,7 @@ import java.util.List;
 public class EnterCommand implements Command {
     private final String[] parameter;
 
+    // Konstruktor mit Parameter vom Typ String-Array
     public EnterCommand(String[] parameter){
         this.parameter = parameter;
     }
@@ -41,7 +42,7 @@ public class EnterCommand implements Command {
                     System.out.println("Ungültiger Befehl. Beispielbefehl: enter new sprint \"SprintName\"");
                 }
             }
-            case "expertise" -> {// TODO: 24.02.22 dump Methode für Sprint implementieren; Siehe auskommentierten Code
+            case "expertise" -> {
                 List<String> moegl_expertisen = Arrays.asList("Java1","Java2","Java3","Java4","Java5","Java6","Java7",
                         "Java8","Java9","Java10","Java11","Java12","Java13","Java14","Java15","Java16","Java17","HTML1","HTML2",
                         "HTML3","HTML4","HTML5", "Assembler"); // moegliche Expertisen

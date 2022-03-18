@@ -2,6 +2,7 @@ package org.hbrs.se1.ws21.uebung4.model;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 public class Sprint implements Serializable {
@@ -9,6 +10,7 @@ public class Sprint implements Serializable {
     private String startdate;
     private Integer sid; //Sprint ID
     private String enddate;
+    Date date = null;
     private List<Object> expertise = new ArrayList<>();
 
     public List<Object> getExpertise() {

@@ -1,5 +1,6 @@
 package org.hbrs.se1.ws21.uebung4.model;
 
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Scanner;
 import java.util.Stack;
@@ -29,17 +30,19 @@ public class CommandHandler {
 		// Initialisierung der Kommandos
 		HashMap<String, Command> commandsMap = new HashMap();
 		commandsMap.put( "help" , new HelpCommand() );
-		commandsMap.put(  "dump"  , new DumpCommand() );
-		commandsMap.put(  "enter"  , new EnterCommand(parameter) );
-		commandsMap.put(  "load"  , new LoadCommand(parameter) );
-		commandsMap.put(  "show"  , new ShowCommand(parameter) );
-		commandsMap.put(  "store"  , new StoreCommand(parameter) );
+		commandsMap.put( "dump"  , new DumpCommand() );
+		commandsMap.put( "enter"  , new EnterCommand(parameter) );
+		commandsMap.put( "load"  , new LoadCommand(parameter) );
+		commandsMap.put( "show"  , new ShowCommand(parameter) );
+		commandsMap.put( "store"  , new StoreCommand(parameter) );
+		commandsMap.put( "exit", new ExitCommand(parameter));
 		//Default Parameter von load
 		//commandsMap.put(  "dump"  , new DumpCommand() );
 		//commandsMap.put(  "dump"  , new DumpCommand() );
 		//commandsMap.put(  "dump"  , new DumpCommand() );
 		return commandsMap.get(parameter[0]);
 	}
+
 	public static void startEingabe() throws ContainerException {
 
 		String strInput = null;
@@ -61,7 +64,17 @@ public class CommandHandler {
 			// Verwendung des Command Pattern!
 
 			Command command = commandHashMap(splited);
-			command.execute();
+			try {
+				command.execute();
+			} catch (NullPointerException e){
+				System.out.println("Befehl nicht bekannt. Geben Sie bitte einen gültigen Befehl ein!\n" +
+						"Geben Sie \"help\" ein, um eine Liste möglicher Befehle anzeigen zu lassen.");
+			}
+
+			if(splited[0].equals("exit")){
+				scanner.close();
+				break;
+			}
 
 			// Stack, zur Abspeicherung der ausgeführten Commandos
 			Stack<Command> stack = new Stack();
