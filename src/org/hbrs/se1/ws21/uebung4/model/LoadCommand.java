@@ -16,31 +16,34 @@ public class LoadCommand implements Command {
     @Override
     public void execute() {
         switch (this.parameter[1]) {
+            // Ueberschreibe vorhandene Employee und Sprint Liste
             case "force" -> {
-                Container.getInstance().setListe(null);
-                Container.getInstance().load();
+                Container.getInstance().setListeEmpl(null);
+                Container.getInstance().loadEmpl();
+                Container.getInstance().setListeSpr(null);
+                Container.getInstance().loadSpr();
             }
             case "merge" -> {
-                List<Employee> tmp = Container.getInstance().getCurrentList();    // zwischenzeitliches speichern der aktuellen Liste im Container
-                Container.getInstance().load();                                    // ersetzen der liste durch die liste im File
+                List<Employee> tmp = Container.getInstance().getCurrentListEmpl();    // zwischenzeitliches speichern der aktuellen Liste im Container
+                Container.getInstance().loadEmpl();                                    // ersetzen der liste durch die liste im File
                 for (Employee employee : tmp) {
                     int counter = 0;
                     int tempID = employee.getPid();
-                    for (Employee e : Container.getInstance().getCurrentList()) {
+                    for (Employee e : Container.getInstance().getCurrentListEmpl()) {
                         if (e.getPid() != tempID) {
                             counter++;
                         }
                     }
-                    if (counter == Container.getInstance().getCurrentList().size()) {
-                        Container.getInstance().getCurrentList().add(employee);   // hinzufügen der temporär gespeicherten Mitarbeiter sofern noch nicht im Speicher
+                    if (counter == Container.getInstance().getCurrentListEmpl().size()) {
+                        Container.getInstance().getCurrentListEmpl().add(employee);   // hinzufügen der temporär gespeicherten Mitarbeiter sofern noch nicht im Speicher
                     } else {
                         System.out.println("ID: " + tempID + " bereits vergeben! Wollen sie die ID überschreiben?");
                         Scanner sc = new Scanner(System.in);
                         if (sc.next().equalsIgnoreCase("JA")) {
-                            for (Employee e : Container.getInstance().getCurrentList()) {
+                            for (Employee e : Container.getInstance().getCurrentListEmpl()) {
                                 if (e.getPid() == tempID) {
-                                    Container.getInstance().getCurrentList().remove(e);        // Element mit derselben Nummer löschen
-                                    Container.getInstance().getCurrentList().add(employee);    // Das Element aus dem File hinzufügen
+                                    Container.getInstance().getCurrentListEmpl().remove(e);        // Element mit derselben Nummer löschen
+                                    Container.getInstance().getCurrentListEmpl().add(employee);    // Das Element aus dem File hinzufügen
                                     break;
                                 }
                             }
@@ -49,7 +52,7 @@ public class LoadCommand implements Command {
                 }
             }
             case "sprint" -> {
-                final String LOCATION = "StoredSprints.ser";
+                final String LOCATION = "allsprints1.ser";
                 ObjectInputStream ois = null;
                 FileInputStream fis = null;
                 Boolean sprint_gefunden = false;

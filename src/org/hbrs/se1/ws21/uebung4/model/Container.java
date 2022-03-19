@@ -1,7 +1,5 @@
 package org.hbrs.se1.ws21.uebung4.model;
 
-import org.hbrs.se1.ws21.uebung4.control.EingabeDialog;
-
 import java.io.*;
 import java.util.*;
 import java.util.stream.Collectors;
@@ -28,7 +26,7 @@ import java.util.stream.Collectors;
 public class Container {
 	 
 	// Interne ArrayList zur Abspeicherung der Objekte vom Type Employee
-	private List<Employee> liste = null;
+	private List<Employee> employeeListe = null;
 	private List<Sprint> sprintList = null;
 	
 	// Statische Klassen-Variable, um die Referenz
@@ -39,6 +37,7 @@ public class Container {
 	
 	// URL der Datei, in der die Objekte gespeichert werden 
 	final static String LOCATION = "allemployees1.ser";
+	final static String LOCATION2 = "allsprints1.ser";
 
 	/**
 	 * Liefert ein Singleton zurück.
@@ -53,7 +52,7 @@ public class Container {
 	 * Nun auf private gesetzt! Vorher ohne Access Qualifier (--> dann package-private)
 	 */
 	private Container(){
-		liste = new ArrayList<Employee>();
+		employeeListe = new ArrayList<Employee>();
 		sprintList = new ArrayList<Sprint>();
 	}
 	
@@ -70,6 +69,7 @@ public class Container {
 	 * Diese Methode realisiert eine Eingabe ueber einen Scanner
 	 * Alle Exceptions werden an den aufrufenden Context (hier: main) weitergegeben (throws)
 	 * Das entlastet den Entwickler zur Entwicklungszeit und den Endanwender zur Laufzeit
+	 * startEingabe()-Methode befindet sich nun in der Klasse CommandHandler!
 	 */
 	public void startEingabe() throws ContainerException, Exception {
 
@@ -93,7 +93,7 @@ public class Container {
 
 
 			if (strings[0].equals("store")) {
-				this.store();
+				this.storeEmpl();
 			}
 			// Anwendung beenden, Scanner schließen
 			if (strings[0].equals("exit")) {
@@ -102,42 +102,42 @@ public class Container {
 			}
 			if (strings[0].equals("search")) {
 				List<Employee> tmp = new ArrayList<>();
-				for (Employee employee : liste) {
+				for (Employee employee : employeeListe) {
 					for (int i = 0; i < employee.getExpertise().size(); i++) {
 						if (strings[1].equals(employee.getExpertise().get(i))) {
 							tmp.add(employee);
 						}
 					}
 				}
-				startAusgabe(tmp, strings[1]);
+				startAusgabeEmpl(tmp, strings[1]);
 			}
 			if (strings[0].equals("load")) {
 				try {
 					if (strings[1].equals("force")) {
-						liste = null;
-						this.load();
+						employeeListe = null;
+						this.loadEmpl();
 					} else if (strings[1].equals("merge")) {
-						List<Employee> tmp = getCurrentList();    // zwischenzeitliches speichern der aktuellen Liste im Container
-						load();                                    // ersetzen der liste durch die liste im File
+						List<Employee> tmp = getCurrentListEmpl();    // zwischenzeitliches speichern der aktuellen Liste im Container
+						loadEmpl();                                    // ersetzen der liste durch die liste im File
 						for (Employee employee : tmp) {
 							int counter = 0;
 							int tempID = employee.getPid();
-							for(Employee e: Container.getInstance().getCurrentList()) {
+							for(Employee e: Container.getInstance().getCurrentListEmpl()) {
 								if(e.getPid()!= tempID){
 									counter++;
 								}
 							}
-							if (counter==Container.getInstance().getCurrentList().size()) {
-								liste.add(employee);   // hinzufügen der temporär gespeicherten Mitarbeiter sofern noch nicht im Speicher
+							if (counter==Container.getInstance().getCurrentListEmpl().size()) {
+								employeeListe.add(employee);   // hinzufügen der temporär gespeicherten Mitarbeiter sofern noch nicht im Speicher
 							}
 							else {
 								System.out.println("ID: " + tempID + " bereits vergeben! Wollen sie die ID überschreiben?");
 								Scanner sc = new Scanner(System.in);
 								if(sc.next().toUpperCase().equals("JA")) {
-									for (Employee e : liste) {
+									for (Employee e : employeeListe) {
 										if (e.getPid() == tempID) {
-											liste.remove(e);		// Element mit derselben Nummer löschen
-											liste.add(employee);	// Das Element aus dem File hinzufügen
+											employeeListe.remove(e);		// Element mit derselben Nummer löschen
+											employeeListe.add(employee);	// Das Element aus dem File hinzufügen
 											break;
 										}
 										else{}
@@ -160,18 +160,17 @@ public class Container {
 			}
 		}
 
-
-
 	/**
 	 * Diese Methode realisiert die Ausgabe.
 	 */
-	public void startAusgabe(List<Employee> listEmployees, String orderBy) {
+	public void startAusgabeEmpl(List<Employee> listEmployees, String orderBy) {
+		// TODO: 19.03.22 Optionale Ueberarbeitung: "dump" wird hier und in der Methode "bubbleSort()" als orderBy-Option verwendet
 		// [Variante mit forEach-Methode / Streams (--> Kapitel 9, Lösung Übung Nr. 2)?
 		//  Gerne auch mit Beachtung der neuen US1
 		// (Filterung Abteilung = "ein Wert (z.B. Marketing)"
 		List<String> filterListe = listEmployees.stream()		// Filter nach Rennfahrer und ID < 100
 		//		.filter( employee -> employee.getRolle().equals("Rennfahrer") )
-				.filter (employee ->  employee.getPid() < 100 )
+		//		.filter (employee ->  employee.getPid() < 100 )
 				.map( employee -> employee.getName() )
 				.collect(Collectors.toList());
 		List<Employee> tmp = new ArrayList<>();
@@ -204,10 +203,14 @@ public class Container {
 					}
 				}
 			}
-
-
-
 	}
+
+	public void startAusgabeSpr(List<Sprint> sprintList){
+		for (Sprint sprint : sprintList) { // Lösung mit Sprint For each:
+			System.out.println(sprint.toString()); //Ausgabe auf der Konsole
+		}
+	}
+
 	static void bubbleSort(List<Employee> employees, int n, String orderBy) throws ContainerException {
 		if (n == 0) {
 			throw new ContainerException("Container Empty");
@@ -259,15 +262,15 @@ public class Container {
 	 * inklusive ihrer gespeicherten Employee-Objekte gespeichert.
 	 * 
 	 */
-	private void store() throws ContainerException{
+	private void storeEmpl() throws ContainerException{
 		ObjectOutputStream oos = null;
 		FileOutputStream fos = null;
 		try {
 			fos = new FileOutputStream( Container.LOCATION );
 			oos = new ObjectOutputStream(fos);
 			
-			oos.writeObject( this.liste );
-			System.out.println( this.size() + " Employee wurden erfolgreich gespeichert!");
+			oos.writeObject( this.employeeListe);
+			System.out.println( this.sizeEmpl() + " Employee/s wurde/n erfolgreich gespeichert!");
 		}
 		catch (IOException e) {
 			e.printStackTrace();
@@ -277,12 +280,38 @@ public class Container {
 		}
 	}
 
+	public static void storeEmployee() throws ContainerException{
+		Container.getInstance().storeEmpl();
+	}
+
+	private void storeSpr() throws ContainerException{
+		ObjectOutputStream oos = null;
+		FileOutputStream fos = null;
+		try {
+			fos = new FileOutputStream( Container.LOCATION2 );
+			oos = new ObjectOutputStream(fos);
+
+			oos.writeObject( this.sprintList );
+			System.out.println( this.sizeSpr() + " Sprint/s wurde/n erfolgreich gespeichert!");
+		}
+		catch (IOException e) {
+			e.printStackTrace();
+			//  Delegation in den aufrufendem Context
+			// (Anwendung Pattern "Chain Of Responsibility)
+			throw new ContainerException("Fehler beim Abspeichern");
+		}
+	}
+
+	public static void storeSprint() throws ContainerException{
+		Container.getInstance().storeSpr();
+	}
+
 	/*
 	 * Methode zum Laden der Liste. Es wird die komplette Liste
 	 * inklusive ihrer gespeicherten Employee-Objekte geladen.
 	 * 
 	 */
-	public void load() {
+	public void loadEmpl() {
 		ObjectInputStream ois = null;
 		FileInputStream fis = null;
 		try {
@@ -291,9 +320,9 @@ public class Container {
 		  // Auslesen der Liste
 		  Object obj = ois.readObject();
 		  if (obj instanceof List<?>) {
-			  this.liste = (List) obj;
+			  this.employeeListe = (List) obj;
 		  }
-		  System.out.println("Es wurden " + this.size() + " Mitarbeiter erfolgreich reingeladen!");
+		  System.out.println("Es wurde/n " + this.sizeEmpl() + " Mitarbeiter erfolgreich hochgeladen!");
 		}
 		catch (IOException e) {
 			System.out.println("LOG (für Admin): Datei konnte nicht gefunden werden!");
@@ -307,6 +336,36 @@ public class Container {
 		}
 	}
 
+	/*
+	 * Methode zum Laden der Liste. Es wird die komplette Liste
+	 * inklusive ihrer gespeicherten Sprints-Objekte geladen.
+	 *
+	 */
+	public void loadSpr() {
+		ObjectInputStream ois = null;
+		FileInputStream fis = null;
+		try {
+			fis = new FileInputStream( Container.LOCATION2 );
+			ois = new ObjectInputStream(fis);
+			// Auslesen der Liste
+			Object obj = ois.readObject();
+			if (obj instanceof List<?>) {
+				this.sprintList = (List) obj;
+			}
+			System.out.println("Es wurde/n " + this.sizeSpr() + " Sprint/s erfolgreich hochgeladen!");
+		}
+		catch (IOException e) {
+			System.out.println("LOG (für Admin): Datei konnte nicht gefunden werden!");
+		}
+		catch (ClassNotFoundException e) {
+			System.out.println("LOG (für Admin): Liste konnte nicht extrahiert werden (ClassNotFound)!");
+		}
+		finally {
+			if (ois != null) try { ois.close(); } catch (IOException e) {}
+			if (fis != null) try { fis.close(); } catch (IOException e) {}
+		}
+	}
+
 	/**
 	 * Methode zum Hinzufügen eines Mitarbeiters unter Wahrung der Schlüsseleigenschaft
 	 * @param employee
@@ -317,7 +376,7 @@ public class Container {
 			ContainerException ex = new ContainerException("ID bereits vorhanden!");
 			throw ex;
 		}
-		liste.add(employee);
+		employeeListe.add(employee);
 	}
 
 	/**
@@ -327,7 +386,7 @@ public class Container {
 	 */
 	private boolean contains(Employee employee) {
 		int ID = employee.getPid();
-		for ( Employee emp : liste) {
+		for ( Employee emp : employeeListe) {
 			if ( emp.getPid() == ID ) {
 				return true;
 			}
@@ -339,8 +398,16 @@ public class Container {
 	 * Ermittlung der Anzahl von internen Employee-Objekten
 	 * @return
 	 */
-	public int size() {
-		return liste.size();
+	public int sizeEmpl() {
+		return employeeListe.size();
+	}
+
+	/**
+	 * Ermittlung der Anzahl von internen Employee-Objekten
+	 * @return
+	 */
+	public int sizeSpr() {
+		return sprintList.size();
 	}
 
 	/**
@@ -348,12 +415,20 @@ public class Container {
 	 * Findet aktuell keine Anwendung bei Hr. P.
 	 * @return
 	 */
-	public List<Employee> getCurrentList() {
-		return this.liste;
+	public List<Employee> getCurrentListEmpl() {
+		return this.employeeListe;
 	}
 
-	public void setListe(List<Employee> liste) {
-		this.liste = liste;
+	public List<Sprint> getCurrentListSpr() {
+		return this.sprintList;
+	}
+
+	public void setListeEmpl(List<Employee> liste) {
+		this.employeeListe = liste;
+	}
+
+	public void setListeSpr(List<Sprint> sprintList) {
+		this.sprintList = sprintList;
 	}
 
 	/**
@@ -362,12 +437,16 @@ public class Container {
 	 * @return
 	 */
 	private Employee getEmployee(int id) {
-		for ( Employee employee : liste) {
+		for ( Employee employee : employeeListe) {
 			if (id == employee.getPid() ){
 				return employee;
 			}
 		}
 		return null;
+	}
+
+	public static Employee getSpecEmployee(int getSpecEmployee){
+		return Container.getInstance().getEmployee(getSpecEmployee);
 	}
 
 	public boolean checkName(String sprint){
@@ -406,5 +485,15 @@ public class Container {
 			}
 		}
 		throw new IndexOutOfBoundsException("Kein Sprint mit dem Namen \""+ sprint_name +"\" vorhanden.");
+	}
+
+	public Employee getEmployeeFromId(String employee_Id) {
+
+		for (Employee employeeFromList : employeeListe) {
+			if(employee_Id.equals(employeeFromList.getName())){
+				return employeeFromList;
+			}
+		}
+		throw new IndexOutOfBoundsException("Kein Mitarbeiter mit der ID \""+ employee_Id +"\" vorhanden.");
 	}
 }

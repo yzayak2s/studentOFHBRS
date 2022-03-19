@@ -12,19 +12,26 @@ public static Employee eingabeDialog() throws Exception {
     Scanner sc = new Scanner(System.in); // Tastatur-Scanner anlegen
     int counter = 0;
     System.out.print("Geben Sie bitte eine Mitarbeiter ID ein: ");
-    int tempID = sc.nextInt();
-    for(Employee e: Container.getInstance().getCurrentList()) {
-        if(e.getPid()!= tempID){
-            counter++;
+
+    try {
+        int tempID = sc.nextInt();
+        for(Employee e: Container.getInstance().getCurrentListEmpl()) {
+            if(e.getPid()!= tempID){
+                counter++;
+            }
         }
-    }
-    if (counter==Container.getInstance().getCurrentList().size()) {
-        employee.setPid(tempID);
-    }
-    else {
-        System.out.println("ID schon vergeben! Wählen Sie bitte eine andere ID.");
+        if (counter==Container.getInstance().getCurrentListEmpl().size()) {
+            employee.setPid(tempID);
+        }
+        else {
+            System.out.println("ID schon vergeben! Geben Sie bitte eine andere ID.\n");
+            eingabeDialog();
+        }
+    } catch (InputMismatchException inputMismatchException) {
+        System.out.println("Bitte geben Sie eine gültige ID ein!\n");
         eingabeDialog();
     }
+
     System.out.print("Geben Sie bitte den Vornamen des Mitarbeiters ein: ");
     employee.setVorname(sc.next());
     System.out.print("Geben Sie bitte den Nachnamen des Mitarbeiters ein: ");
@@ -36,6 +43,7 @@ public static Employee eingabeDialog() throws Exception {
     employee.setAbteilung(sc.next());
     List<Object> employeeExpertise = new ArrayList<Object>();
     List<Integer> employeeExpertisenGrad = new ArrayList<>();
+
     for (int i = 0; i < 3; ++i) {
         String entscheidung;
         if(i==0){
@@ -46,6 +54,7 @@ public static Employee eingabeDialog() throws Exception {
             System.out.print("Wollen Sie dem Mitarbeiter eine weitere Expertise zuweisen? (Ja/Nein): ");
              entscheidung = sc.next().toUpperCase(); // Zeichenkette einlesen
         }
+
         if (entscheidung.equals("JA")) {
             System.out.print("Geben Sie bitte die Bezeichnung der Expertise des Mitarbeiters ein: ");
             String expertise = sc.next(); // Zeichenkette einlesen
@@ -53,7 +62,6 @@ public static Employee eingabeDialog() throws Exception {
             int expertisenGrad = sc.nextInt(); // Zeichenkette einlesen
             employeeExpertise.add(i, expertise);
             employeeExpertisenGrad.add(i, expertisenGrad);
-
         } else if (entscheidung.equals("NEIN")) {
             break;
         } else{
@@ -70,8 +78,8 @@ public static Employee eingabeDialog() throws Exception {
     }
     public static String setName(String name) throws Exception{
         double userInputDouble = 0;
-        while (true) {
 
+        while (true) {
             Scanner sc = new Scanner(System.in);
             try {
                 userInputDouble = Double.parseDouble(name);     // double da man damit int auch direkt behandelt
@@ -91,4 +99,3 @@ public static Employee eingabeDialog() throws Exception {
     return name;
     }
 }
-

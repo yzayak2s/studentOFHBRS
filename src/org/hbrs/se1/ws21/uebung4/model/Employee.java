@@ -70,6 +70,7 @@ public class Employee implements java.io.Serializable, Comparable<Employee>, Mem
         this.expertisenGrad = expertisenGrad;
     }
 
+    @Override
     public String toString(){
         return ("Mitarbeiter-ID: "+ getPid() +", Name: " + getVorname() + " " + getName() + ", Rolle: " + getRolle()) +", Abteilung: " +getAbteilung();
     }

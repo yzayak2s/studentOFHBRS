@@ -10,19 +10,30 @@ public class ShowCommand implements Command{
     @Override
     public void execute() {// TODO: 28.02.22 switch case zu ende machen; show command ist das Ziel
         switch (parameter[1]){
-            case "employee" -> System.out.println("Employee");
+            case "employee" -> {
+                try {
+                    Employee employee = Container.getSpecEmployee(Integer.parseInt(parameter[2]));
+                    System.out.println(employee.toString());
+                    //System.out.println("DUMP-Employee: " + parameter[2]);
+                } catch (IndexOutOfBoundsException e){
+                    System.out.println(e.getMessage());
+                } catch (NumberFormatException numberFormatException){
+                    System.out.println("Geben Sie bitte eine gültige ID!");
+                }
+            }
 
             case "sprint" -> {
                 try {
                     Sprint temp_sprint = Container.getInstance().getSprintFromName(parameter[2].replaceAll("^\"|\"$", ""));
                     System.out.println(temp_sprint.toString());
-                    System.out.println("DUMP-Sprint: " + parameter[2]);
+                    //System.out.println("DUMP-Sprint: " + parameter[2]);
                 } catch (IndexOutOfBoundsException e){
                     System.out.println(e.getMessage());
                 }
             }
 
-            default -> System.out.println("Unbekannter Befehl! Mögliche Befehle: show employee und show sprint");
+            default -> System.out.println("Unbekannter Befehl!\nMögliche Befehle:\n  show employee" +
+                    "\n  show sprint");
         }
     }
 

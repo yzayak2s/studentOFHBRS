@@ -50,6 +50,9 @@ public class CommandHandler {
 		// Initialisierung des Eingabe-View
 		Scanner scanner = new Scanner( System.in );
 
+		// Ausgabe eines Texts zur Begruessung
+		System.out.println("Employee-Tool V1.1 by yzayak2s & rfalke2s");
+
 		while ( true ) {
 			// Print the prompt
 			System.out.print("> ");
