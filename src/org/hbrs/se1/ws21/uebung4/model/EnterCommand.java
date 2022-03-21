@@ -26,6 +26,7 @@ public class EnterCommand implements Command {
                 }
             }
             case "new" -> {
+                // TODO: 20.03.22 Fehler bei der Anwendungslogik, wenn Sprint mit bereits vorhandenen Sprint-Namen erstellt wird.
                 Sprint temp_sprint = new Sprint();
                 if (!parameter[3].equals("none") && parameter[2].equals("sprint")) {
                     String expertise_eingabe = parameter[3].replaceAll("^\"|\"$", "");
@@ -33,10 +34,10 @@ public class EnterCommand implements Command {
 
                     try {
                         Container.getInstance().addSprint(temp_sprint);
+                        System.out.println("Geben Sie mit weiteren Befehlen die Expertise und das Datum ein.");
                     } catch (ContainerException e) {
                         e.printStackTrace();
                     }
-                    System.out.println("Geben Sie mit weiteren Befehlen die Expertise und das Datum ein.");
                 }
                 else {
                     System.out.println("Ungültiger Befehl. Beispielbefehl: enter new sprint \"SprintName\"");

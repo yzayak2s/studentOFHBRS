@@ -24,9 +24,9 @@ public class CommandHandler {
 			}
 			parameter = temp;
 		}
-		for (int i = 0; i < parameter.length; i++) {
-			System.out.println(parameter[i]);
-		}
+		//for (int i = 0; i < parameter.length; i++) {
+		//	System.out.println(parameter[i]);
+		//}
 		// Initialisierung der Kommandos
 		HashMap<String, Command> commandsMap = new HashMap();
 		commandsMap.put( "help" , new HelpCommand() );
@@ -36,6 +36,7 @@ public class CommandHandler {
 		commandsMap.put( "show"  , new ShowCommand(parameter) );
 		commandsMap.put( "store"  , new StoreCommand(parameter) );
 		commandsMap.put( "exit", new ExitCommand(parameter));
+		commandsMap.put( "plan", new PlanCommand(parameter));
 		//Default Parameter von load
 		//commandsMap.put(  "dump"  , new DumpCommand() );
 		//commandsMap.put(  "dump"  , new DumpCommand() );
@@ -51,7 +52,7 @@ public class CommandHandler {
 		Scanner scanner = new Scanner( System.in );
 
 		// Ausgabe eines Texts zur Begruessung
-		System.out.println("Employee-Tool V1.1 by yzayak2s & rfalke2s");
+		System.out.println("Employee-Tool V2.1 by yzayak2s & rfalke2s");
 
 		while ( true ) {
 			// Print the prompt

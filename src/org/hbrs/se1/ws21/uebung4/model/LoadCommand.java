@@ -18,12 +18,15 @@ public class LoadCommand implements Command {
         switch (this.parameter[1]) {
             // Ueberschreibe vorhandene Employee und Sprint Liste
             case "force" -> {
+                // Für Employees
                 Container.getInstance().setListeEmpl(null);
                 Container.getInstance().loadEmpl();
+                // Für Sprints
                 Container.getInstance().setListeSpr(null);
                 Container.getInstance().loadSpr();
             }
             case "merge" -> {
+                // TODO: 21.03.22 Refaktorisieren und ggf. für Sprints implementieren 
                 List<Employee> tmp = Container.getInstance().getCurrentListEmpl();    // zwischenzeitliches speichern der aktuellen Liste im Container
                 Container.getInstance().loadEmpl();                                    // ersetzen der liste durch die liste im File
                 for (Employee employee : tmp) {

@@ -10,7 +10,7 @@ public class Sprint implements Serializable {
     private String startdate;
     private Integer sid; //Sprint ID
     private String enddate;
-    Date date = null;
+    private Date date = null;
     private List<Object> expertise = new ArrayList<>();
 
     public List<Object> getExpertise() {

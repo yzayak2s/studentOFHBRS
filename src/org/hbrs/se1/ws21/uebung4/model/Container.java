@@ -209,6 +209,9 @@ public class Container {
 		for (Sprint sprint : sprintList) { // Lösung mit Sprint For each:
 			System.out.println(sprint.toString()); //Ausgabe auf der Konsole
 		}
+		//List<String> listSprint = this.sprintList.stream()
+		//		.map(sprint -> sprint.getName())
+		//		.collect(Collectors.toList()); // sortieren nach Alphabet
 	}
 
 	static void bubbleSort(List<Employee> employees, int n, String orderBy) throws ContainerException {
