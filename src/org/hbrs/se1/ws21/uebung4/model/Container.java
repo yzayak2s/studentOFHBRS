@@ -36,7 +36,7 @@ public class Container {
 	private static Container instance = new Container();
 	
 	// URL der Datei, in der die Objekte gespeichert werden 
-	final static String LOCATION = "allemployees1.ser";
+	final static String LOCATION = "allemployees2.ser";
 	final static String LOCATION2 = "allsprints1.ser";
 
 	/**

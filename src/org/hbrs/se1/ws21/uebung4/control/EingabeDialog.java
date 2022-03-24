@@ -44,6 +44,7 @@ public static Employee eingabeDialog() throws Exception {
     List<Object> employeeExpertise = new ArrayList<Object>();
     List<Integer> employeeExpertisenGrad = new ArrayList<>();
 
+
     for (int i = 0; i < 3; ++i) {
         String entscheidung;
         if(i==0){
@@ -72,7 +73,14 @@ public static Employee eingabeDialog() throws Exception {
     }
     employee.setExpertise(employeeExpertise);
     employee.setExpertisenGrad(employeeExpertisenGrad);
-    //sc.close(); // Scanner schliessen
+    // TODO: 24.03.22 Hier kann man alles moegliche eintragen.
+    System.out.println("Geben Sie bitte an, ab wann der Mitarbeiter verfuegbar ist.\nBeispiel: \"1.1.2022\" ");
+    employee.setStartVerfuegbarkeit(sc.next());
+    System.out.println("Geben Sie bitte an, bis wann der Mitarbeiter verfuegbar ist.\nBeispiel: \"1.1.2022\" ");
+    employee.setEndVerfuegbarkeit(sc.next());
+    System.out.println("Mitarbeiter wurde erstellt!");
+
+    //sc.close(); // Scanner wird CommandHandler geschlossen
     // (Eingabe beenden)
     return employee;
     }

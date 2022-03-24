@@ -11,7 +11,8 @@ public class Employee implements java.io.Serializable, Comparable<Employee>, Mem
     private Integer pid;
     private String abteilung;
     private String rolle;
-    private String verfuegbarkeit;
+    private String startVerfuegbarkeit;
+    private String endVerfuegbarkeit;
     private List<Object> expertise = new ArrayList<>();
     private List<Integer> expertisenGrad = new ArrayList<>();
 
@@ -81,12 +82,20 @@ public class Employee implements java.io.Serializable, Comparable<Employee>, Mem
         return this.pid.compareTo(e.pid); // Werte: 0, 1, -1 --> Pid vergleichen!
     }
 
-    public String getVerfuegbarkeit() {
-        return verfuegbarkeit;
+    public String getStartVerfuegbarkeit() {
+        return startVerfuegbarkeit;
     }
 
-    public void setVerfuegbarkeit(String verfuegbarkeit) {
-        this.verfuegbarkeit = verfuegbarkeit;
+    public void setStartVerfuegbarkeit(String startVerfuegbarkeit) {
+        this.startVerfuegbarkeit = startVerfuegbarkeit;
+    }
+
+    public String getEndVerfuegbarkeit() {
+        return endVerfuegbarkeit;
+    }
+
+    public void setEndVerfuegbarkeit(String endVerfuegbarkeit) {
+        this.endVerfuegbarkeit = endVerfuegbarkeit;
     }
 }
 

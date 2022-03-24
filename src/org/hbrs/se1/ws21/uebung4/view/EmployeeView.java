@@ -1,14 +1,14 @@
 package org.hbrs.se1.ws21.uebung4.view;
 
-import org.hbrs.se1.ws21.solutions.uebung2.Member;
+import org.hbrs.se1.ws21.uebung4.model.Employee;
 
 import java.util.List;
 
 public class EmployeeView {
 
-    public void dumpEmpl(List<Member> list1){
-        for (Member member : list1) { // Lösung mit Member For each:
-            System.out.println(member.toString()); //Ausgabe auf der Konsole
+    public void dumpEmpl(List<Employee> list1){
+        for (Employee employee : list1) { // Lösung mit Member For each:
+            System.out.println(employee.toString()); //Ausgabe auf der Konsole
         }
     }
 }
