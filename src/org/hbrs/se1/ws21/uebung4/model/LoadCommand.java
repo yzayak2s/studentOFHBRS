@@ -13,6 +13,9 @@ public class LoadCommand implements Command {
         this.parameter= parameter;
     }
 
+    final static String LOCATION = "allemployees2.ser";
+    final static String LOCATION2 = "allsprints2.ser";
+
     @Override
     public void execute() {
         switch (this.parameter[1]) {
@@ -20,15 +23,16 @@ public class LoadCommand implements Command {
             case "force" -> {
                 // Für Employees
                 Container.getInstance().setListeEmpl(null);
-                Container.getInstance().loadEmpl();
+                loadEmpl();
+
                 // Für Sprints
                 Container.getInstance().setListeSpr(null);
-                Container.getInstance().loadSpr();
+                loadSpr();
             }
             case "merge" -> {
                 // TODO: 21.03.22 Refaktorisieren und ggf. für Sprints implementieren 
                 List<Employee> tmp = Container.getInstance().getCurrentListEmpl();    // zwischenzeitliches speichern der aktuellen Liste im Container
-                Container.getInstance().loadEmpl();                                    // ersetzen der liste durch die liste im File
+                loadEmpl();                                    // ersetzen der liste durch die liste im File
                 for (Employee employee : tmp) {
                     int counter = 0;
                     int tempID = employee.getPid();
@@ -55,7 +59,7 @@ public class LoadCommand implements Command {
                 }
             }
             case "sprint" -> {
-                final String LOCATION = "allsprints1.ser";
+                final String LOCATION = "allsprints2.ser";
                 ObjectInputStream ois = null;
                 FileInputStream fis = null;
                 try {
@@ -89,6 +93,56 @@ public class LoadCommand implements Command {
             }
             case "none" -> System.out.println("Geben Sie bitte die Variante des Ladens als 2. Parameter an (load force oder load merge).");
             default -> System.out.println("Unbekannter Befehl! Mögliche Befehle: load force, load merge");
+        }
+    }
+
+    public void loadEmpl() {
+        ObjectInputStream ois = null;
+        FileInputStream fis = null;
+        try {
+            fis = new FileInputStream( LOCATION );
+            ois = new ObjectInputStream(fis);
+            // Auslesen der Liste
+            Object obj = ois.readObject();
+            if (obj instanceof List<?>) {
+                Container.getInstance().setListeEmpl((List) obj);
+            }
+            System.out.println("Es wurde/n " + Container.getInstance().sizeEmpl() + " Mitarbeiter erfolgreich hochgeladen!");
+        }
+        catch (IOException e) {
+            System.out.println("LOG (für Admin): Datei konnte nicht gefunden werden!");
+        }
+        catch (ClassNotFoundException e) {
+            System.out.println("LOG (für Admin): Liste konnte nicht extrahiert werden (ClassNotFound)!");
+        }
+        finally {
+            if (ois != null) try { ois.close(); } catch (IOException e) {}
+            if (fis != null) try { fis.close(); } catch (IOException e) {}
+        }
+    }
+
+    public void loadSpr() {
+        ObjectInputStream ois = null;
+        FileInputStream fis = null;
+        try {
+            fis = new FileInputStream( LOCATION2 );
+            ois = new ObjectInputStream(fis);
+            // Auslesen der Liste
+            Object obj = ois.readObject();
+            if (obj instanceof List<?>) {
+                Container.getInstance().setListeSpr((List) obj);
+            }
+            System.out.println("Es wurde/n " + Container.getInstance().sizeSpr() + " Sprint/s erfolgreich hochgeladen!");
+        }
+        catch (IOException e) {
+            System.out.println("LOG (für Admin): Datei konnte nicht gefunden werden!");
+        }
+        catch (ClassNotFoundException e) {
+            System.out.println("LOG (für Admin): Liste konnte nicht extrahiert werden (ClassNotFound)!");
+        }
+        finally {
+            if (ois != null) try { ois.close(); } catch (IOException e) {}
+            if (fis != null) try { fis.close(); } catch (IOException e) {}
         }
     }
 

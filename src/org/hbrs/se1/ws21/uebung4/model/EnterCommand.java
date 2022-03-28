@@ -57,10 +57,10 @@ public class EnterCommand implements Command {
                         //    if(currentExpertises.contains(expertise_eingabe)){
                         //        System.out.println(currentExpertises);
                         //    }else{
-                            System.out.println(currentExpertises);
                             currentExpertises.add(currentExpertises.size(), parameter[2]);
                             temp_sprint.setExpertise(currentExpertises);
                         //    }
+                            System.out.println(currentExpertises);
                         }
                         else {
                             System.out.println("Geben sie bitte einen Namen der Expertise ein.");

@@ -68,12 +68,12 @@ public class CommandHandler {
 			// Verwendung des Command Pattern!
 
 			Command command = commandHashMap(splited);
-			try {
+			//try {
 				command.execute();
-			} catch (NullPointerException e){
-				System.out.println("Befehl nicht bekannt. Geben Sie bitte einen gültigen Befehl ein!\n" +
-						"Geben Sie \"help\" ein, um eine Liste möglicher Befehle anzeigen zu lassen.");
-			}
+			//} catch (NullPointerException e){
+			//	System.out.println("Befehl nicht bekannt. Geben Sie bitte einen gültigen Befehl ein!\n" +
+			//			"Geben Sie \"help\" ein, um eine Liste möglicher Befehle anzeigen zu lassen.");
+			//}
 
 			if(splited[0].equals("exit")){
 				scanner.close();

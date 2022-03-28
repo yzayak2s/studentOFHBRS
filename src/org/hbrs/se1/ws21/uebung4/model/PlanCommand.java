@@ -26,6 +26,7 @@ public class PlanCommand implements Command {
                     "\n  plan sprint \"<Sprintname>\" -all");
         }
     }
+
     public void helperPlan(boolean allParameter) throws ContainerException {
         HashMap<Employee, Double> matchList = new HashMap<>();
         for (Employee employee : Container.getInstance().getCurrentListEmpl()) {
@@ -60,6 +61,7 @@ public class PlanCommand implements Command {
         Map<Employee, Double> sortedMap = hashMapSort(matchList);
         printMap(sortedMap);
     }
+
     public Map<Employee, Double> hashMapSort(HashMap<Employee, Double> mapPct) throws ContainerException {
         List<Entry<Employee, Double>> list = new LinkedList<Entry<Employee, Double>>(mapPct.entrySet());
         Collections.sort(list, new Comparator<Entry<Employee, Double>>()
@@ -82,10 +84,10 @@ public class PlanCommand implements Command {
         return sortedMap;
     }
 
-    private static void printMap(Map<Employee, Double> map)
-    {
+    private static void printMap(Map<Employee, Double> map) {
         map.forEach((key, value) -> System.out.println("Key : " + key + " Value : " + value));
     }
+
     @Override
     public void undo() {
 
