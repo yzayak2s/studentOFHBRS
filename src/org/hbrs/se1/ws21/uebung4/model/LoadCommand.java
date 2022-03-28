@@ -58,33 +58,20 @@ public class LoadCommand implements Command {
                 final String LOCATION = "allsprints1.ser";
                 ObjectInputStream ois = null;
                 FileInputStream fis = null;
-                Boolean sprint_gefunden = false;
                 try {
                     fis = new FileInputStream( LOCATION );
                     ois = new ObjectInputStream(fis);
                     // Auslesen der Liste
                     Object obj = ois.readObject();
-                    System.out.println("1");
-                    Sprint temp_sprint = null;
-                    if (obj instanceof Sprint) {
-                        System.out.println("2");
-                        if(parameter[2].equals(((Sprint) obj).getName())){
-                            Container.getInstance().addSprint((Sprint) obj);
-                            sprint_gefunden = true;
-                            System.out.println( "Der Sprint " + parameter[2] + " wurde erfolgreich geladen!");
+                    if (obj instanceof List<?>) {
+                        List<Sprint> sprintList = (List) obj;
+                        for (Sprint sprintFromList : sprintList) {
+                            if(parameter[2].equals(sprintFromList.getName())){
+                                Container.getInstance().addSprint(sprintFromList);
+                                System.out.println( "Der Sprint " + parameter + " wurde erfolgreich geladen!");
+                            }
                         }
-
-                        //for (Sprint sprintFromList : Container.getInstance().getSprintList()) {
-                        //    if(parameter[2].equals(sprintFromList.getName())){
-                        //        Container.getInstance().addSprint(sprintFromList);
-                        //        sprint_gefunden = true;
-                        //        System.out.println( "Der Sprint " + parameter[2] + " wurde erfolgreich geladen!");
-                        //    }
-                        //}
-
-                        if (!sprint_gefunden){
-                            System.out.println("Datei nicht gefunden!");
-                        }
+                        System.out.println("Datei nicht gefunden!");
                     }
                 }
                 catch (IOException e) {

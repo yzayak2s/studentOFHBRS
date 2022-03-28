@@ -193,6 +193,9 @@ public class Container {
 				System.out.println(employee.toString());
 			}
 		}
+		else if (orderBy.equals("planProzent")){
+
+		}
 		else {
 			for (Employee employee : listEmployees) {
 				for (int j = 0; j < employee.getExpertise().size(); j++) {    // Expertisengrad von j bekommen
@@ -359,6 +362,7 @@ public class Container {
 		}
 		catch (IOException e) {
 			System.out.println("LOG (für Admin): Datei konnte nicht gefunden werden!");
+			System.out.println();
 		}
 		catch (ClassNotFoundException e) {
 			System.out.println("LOG (für Admin): Liste konnte nicht extrahiert werden (ClassNotFound)!");

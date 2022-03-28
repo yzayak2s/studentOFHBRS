@@ -1,5 +1,12 @@
 package org.hbrs.se1.ws21.uebung4.model;
 
+import org.hbrs.se1.ws21.uebung4.model.persistence.PersistenceStrategy;
+import org.hbrs.se1.ws21.uebung4.model.persistence.PersistenceStrategyStream;
+
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectOutputStream;
+
 public class StoreCommand implements Command{
     private final String[] parameter;
 
@@ -11,19 +18,24 @@ public class StoreCommand implements Command{
 
     @Override
     public void execute() throws ContainerException {
-        // TODO: 19.03.22 Hier die Methode erweitern, um erstellte Employees speichern zu koennen. Update: funktioniert
 
-        switch (this.parameter[1]) {
-
-            // Employee Speicherung
-            case "employee" -> {
-                Container.storeEmployee();
+        if (Container.getInstance().checkName(parameter[2])){
+            ObjectOutputStream oos = null;
+            FileOutputStream fos = null;
+            try {
+                fos = new FileOutputStream( LOCATION );
+                oos = new ObjectOutputStream(fos);
+                oos.writeObject( Container.getInstance().getSprintFromName(parameter[2]) );
+                System.out.println( "Der Sprint " + parameter + " wurde erfolgreich gespeichert!");
             }
-            // Sprint Speicherung
-            case "sprint" -> {
-                Container.storeSprint();
+            catch (IOException e) {
+                e.printStackTrace();
+                //  Delegation in den aufrufendem Context
+                // (Anwendung Pattern "Chain Of Responsibility)
+                throw new ContainerException("Fehler beim Abspeichern");
             }
-            default -> System.out.println("Unbekannter Befehl!\nMögliche Befehle:\n  store employee\n  store sprint");
+        } else{
+            System.out.println("Sprint mit dem Namen nicht vorhanden!");
         }
     }
 
