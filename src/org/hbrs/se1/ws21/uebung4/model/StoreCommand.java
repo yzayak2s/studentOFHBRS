@@ -55,7 +55,7 @@ public class StoreCommand implements Command{
             fos = new FileOutputStream( LOCATION2 );
             oos = new ObjectOutputStream(fos);
 
-            oos.writeObject( Container.getInstance().sizeSpr());
+            oos.writeObject( Container.getInstance().getCurrentListSpr());
             System.out.println( Container.getInstance().sizeSpr() + " Sprint/s wurde/n erfolgreich gespeichert!");
         }
         catch (IOException e) {
