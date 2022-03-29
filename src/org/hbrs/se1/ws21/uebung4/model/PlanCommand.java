@@ -70,15 +70,9 @@ public class PlanCommand implements Command {
                                 double timeDifferenceEnd = dateSprEnd.getTime() - dateEmpEnd.getTime();
                                 double daysDifferenceEnd = (timeDifferenceEnd / (1000*60*60*24)) % 365;
                                 dateFactor = (lengthSprintDays-daysDifferenceEnd)/lengthSprintDays;
-                                System.out.println(dateFactor);
-                                System.out.println(lengthSprintDays+ " | " + daysDifferenceEnd);
-                                System.out.println("End "+ employee.getName() + " " + dateFactor);
-                                System.out.println(employee.getStartVerfuegbarkeit() +" | "+employee.getEndVerfuegbarkeit());
                                 if (start){
                                     dateFactor = lengthSprintDays-(daysDifferenceStart+daysDifferenceEnd)/lengthSprintDays;
-                                    System.out.println("Both "+ employee.getName() + " "+ dateFactor);
                                 }
-                                System.out.println("End / After Both  "+ employee.getName() + " "+ dateFactor);
                             }
                         }
                         else{
