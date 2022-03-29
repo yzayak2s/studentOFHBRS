@@ -118,7 +118,8 @@ public class PlanCommand implements Command {
     }
 
     private static void printMap(Map<Employee, Double> map) {
-        map.forEach((key, value) -> System.out.println("Mitarbeiter : " + key + " | Eignung für Sprint : " + value+"%"));
+        map.forEach((key, value) -> System.out.println("Mitarbeiter : " +  key.getVorname()+ " " + key.getName() +
+                " | Eignung für Sprint : " + value+"%"));
     }
 
     @Override

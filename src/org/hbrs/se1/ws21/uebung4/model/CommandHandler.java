@@ -1,10 +1,7 @@
 package org.hbrs.se1.ws21.uebung4.model;
 
 import java.text.ParseException;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.Scanner;
-import java.util.Stack;
+import java.util.*;
 
 /*
  * Invoker (laut Command Pattern)
@@ -38,6 +35,7 @@ public class CommandHandler {
 		commandsMap.put( "store"  , new StoreCommand(parameter) );
 		commandsMap.put( "exit", new ExitCommand(parameter));
 		commandsMap.put( "plan", new PlanCommand(parameter));
+		commandsMap.put("undo",  new UndoCommand());
 		//Default Parameter von load
 		//commandsMap.put(  "dump"  , new DumpCommand() );
 		//commandsMap.put(  "dump"  , new DumpCommand() );
@@ -46,7 +44,7 @@ public class CommandHandler {
 	}
 
 	public static void startEingabe() throws ContainerException, ParseException {
-
+		Stack<Command> stack = new Stack();
 		String strInput = null;
 
 		// Initialisierung des Eingabe-View
@@ -82,14 +80,8 @@ public class CommandHandler {
 			}
 
 			// Stack, zur Abspeicherung der ausgeführten Commandos
-			Stack<Command> stack = new Stack();
-			stack.push(command);
 
-			// Ergänzungen: Rückgängig-Machung des letzten Befehls:
-			//Command command1 = stack.pop();
-			//	System.out.println("LOG: Command wurde zurückgeführt!");
-			//	command1.undo();
-
+			CommandList.addBefehl(command);
 
 
 
