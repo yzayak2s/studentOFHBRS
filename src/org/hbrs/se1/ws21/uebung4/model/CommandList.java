@@ -11,7 +11,7 @@ public class CommandList {
 
     public static Command pop() {
         try {
-            return (Command)stack.pop();
+            return stack.pop();
         } catch (Exception var1) {
             System.out.println("Befehlsspeicher ist leer.");
             return null;
