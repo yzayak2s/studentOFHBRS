@@ -1,5 +1,6 @@
 package org.hbrs.se1.ws21.uebung4.model;
 
+import java.text.ParseException;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Scanner;
@@ -44,7 +45,7 @@ public class CommandHandler {
 		return commandsMap.get(parameter[0]);
 	}
 
-	public static void startEingabe() throws ContainerException {
+	public static void startEingabe() throws ContainerException, ParseException {
 
 		String strInput = null;
 
