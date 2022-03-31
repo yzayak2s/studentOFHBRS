@@ -44,6 +44,8 @@ public class EnterCommand implements Command {
                 }
             }
             case "expertise" -> {
+                // TODO: 31.03.22 Eventuell Array-List refaktorisieren, damit die Expertisen der Employees auch ueber die Liste geprueft werden koennen
+                //  Hier nur fuer die Sprints verwendet
                 List<String> moegl_expertisen = Arrays.asList("Java1","Java2","Java3","Java4","Java5","Java6","Java7",
                         "Java8","Java9","Java10","Java11","Java12","Java13","Java14","Java15","Java16","Java17",
                         "HTML1","HTML2", "HTML3","HTML4","HTML5", "Assembler"); // moegliche Expertisen
@@ -57,7 +59,7 @@ public class EnterCommand implements Command {
                         //    if(currentExpertises.contains(expertise_eingabe)){
                         //        System.out.println(currentExpertises);
                         //    }else{
-                            currentExpertises.add(currentExpertises.size(), parameter[2]);
+                            currentExpertises.add(currentExpertises.size(), expertise_eingabe);
                             temp_sprint.setExpertise(currentExpertises);
                         //    }
                             System.out.println(currentExpertises);

@@ -13,7 +13,7 @@ public class LoadCommand implements Command {
         this.parameter= parameter;
     }
 
-    final static String LOCATION = "allemployees2.ser";
+    final static String LOCATION = "allemployees4.ser";
     final static String LOCATION2 = "allsprints2.ser";
 
     @Override

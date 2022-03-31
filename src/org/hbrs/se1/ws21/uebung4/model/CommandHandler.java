@@ -30,12 +30,13 @@ public class CommandHandler {
 		commandsMap.put( "help" , new HelpCommand() );
 		commandsMap.put( "dump"  , new DumpCommand() );
 		commandsMap.put( "enter"  , new EnterCommand(parameter) );
+		commandsMap.put( "delete", new DeleteCommand(parameter));
 		commandsMap.put( "load"  , new LoadCommand(parameter) );
 		commandsMap.put( "show"  , new ShowCommand(parameter) );
 		commandsMap.put( "store"  , new StoreCommand(parameter) );
 		commandsMap.put( "exit", new ExitCommand(parameter));
 		commandsMap.put( "plan", new PlanCommand(parameter));
-		commandsMap.put("undo",  new UndoCommand());
+		commandsMap.put( "undo",  new UndoCommand());
 		//Default Parameter von load
 		//commandsMap.put(  "dump"  , new DumpCommand() );
 		//commandsMap.put(  "dump"  , new DumpCommand() );
@@ -82,9 +83,6 @@ public class CommandHandler {
 			// Stack, zur Abspeicherung der ausgeführten Commandos
 
 			CommandList.addBefehl(command);
-
-
-
 		}
 
 	}

@@ -13,6 +13,8 @@ public class Employee implements java.io.Serializable, Comparable<Employee>, Mem
     private String rolle;
     private String startVerfuegbarkeit;
     private String endVerfuegbarkeit;
+    private String verfuegbarkeit;
+    private double ovMatch;
     private List<Object> expertise = new ArrayList<>();
     private List<Integer> expertisenGrad = new ArrayList<>();
 
@@ -96,6 +98,22 @@ public class Employee implements java.io.Serializable, Comparable<Employee>, Mem
 
     public void setEndVerfuegbarkeit(String endVerfuegbarkeit) {
         this.endVerfuegbarkeit = endVerfuegbarkeit;
+    }
+
+    public String getVerfuegbarkeit() {
+        return verfuegbarkeit;
+    }
+
+    public void setVerfuegbarkeit(String verfuegbarkeit) {
+        this.verfuegbarkeit = verfuegbarkeit;
+    }
+
+    public double getOvMatch() {
+        return ovMatch;
+    }
+
+    public void setOvMatch(double ovMatch) {
+        this.ovMatch = ovMatch;
     }
 }
 

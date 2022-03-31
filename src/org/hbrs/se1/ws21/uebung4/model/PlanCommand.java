@@ -32,28 +32,32 @@ public class PlanCommand implements Command {
                 double matchPct = 0;
                 double dateFactor = -1;
                 for (Object sprExpertise : temp_sprint.getExpertise()) {
-                    double Gleichheitsfaktor = 0;
+                    double gleichheitsfaktor = 0;
                     for (Object empExpertise : employee.getExpertise()) {
                         if (sprExpertise.equals(empExpertise)) {
-                            Gleichheitsfaktor = 1;
+                            gleichheitsfaktor = 1;
                         }
                         if (sprExpertise.toString().substring(0, 4).equals(empExpertise.toString().substring(0, 4))) {
-                            if (Gleichheitsfaktor < 0.8) {
-                                Gleichheitsfaktor = 0.8;
+                            if (gleichheitsfaktor < 0.8) {
+                                gleichheitsfaktor = 0.8;
                             }
                         }
                     }
                     SimpleDateFormat formatter = new SimpleDateFormat("dd.MM.yyyy");
 
                     try {
+                        // parse Datum vom Typ String in Datums-Typ
                         Date dateEmpStart = formatter.parse(employee.getStartVerfuegbarkeit());
                         Date dateEmpEnd = formatter.parse(employee.getEndVerfuegbarkeit());
                         Date dateSprStart = formatter.parse(temp_sprint.getStartdate());
                         Date dateSprEnd = formatter.parse(temp_sprint.getEnddate());
+
                         if (dateSprEnd.before(dateEmpStart) || dateEmpEnd.before(dateSprStart)){
+                            employee.setVerfuegbarkeit("nicht verfuegbar");
                             dateFactor = 0;
                         }
                         else if (dateSprStart.before(dateEmpStart) || dateEmpEnd.before(dateSprEnd) ){
+                            employee.setVerfuegbarkeit("teilweise");
                             boolean start = false;
                             // eig longs statt double aber damit hat die rechnung iwie nicht funktioniert unterschied aber minimal
                             double lengthSprint = dateSprEnd.getTime() - dateSprStart.getTime();
@@ -77,9 +81,11 @@ public class PlanCommand implements Command {
                         }
                         else{
                             dateFactor = 1;
+                            employee.setVerfuegbarkeit("verfuegbar");
                         }
-                            matchPct = matchPct + (100.0 / temp_sprint.getExpertise().size()) * Gleichheitsfaktor;
-
+                        matchPct = matchPct + (100.0 / temp_sprint.getExpertise().size()) * gleichheitsfaktor;
+                        // Uebergabe des Prozentualen-Anteils der Verfuegbarkeit an die Instanz-Methode setOvMatch() (siehe Employee-Klasse)
+                        employee.setOvMatch(matchPct); // todo --> Ziel ist Prozentuale Angabe in der Ausgabe-Konsole "Overall Match"!
 
                     }
                     catch (ParseException e){
@@ -99,7 +105,7 @@ public class PlanCommand implements Command {
             }
 
 
-        System.out.println("Die folgenden Mitarbeiter sind in der Filiale verfügbar (geeignet und nicht geeignet):");
+        System.out.println("Die folgenden Mitarbeiter sind für Ihren Sprint (nicht) geeignet: ");
         Map<Employee, Double> sortedMap = hashMapSort(matchList);
         printMap(sortedMap);
 
@@ -118,8 +124,10 @@ public class PlanCommand implements Command {
     }
 
     private static void printMap(Map<Employee, Double> map) {
-        map.forEach((key, value) -> System.out.println("Mitarbeiter : " +  key.getVorname()+ " " + key.getName() +
-                " | Eignung für Sprint : " + value+"%"));
+        String format = "|%1$-20s|%2$-20s|%3$-20s|%n";
+        System.out.format(format, "Vorname", "Nachname", "Treffer in %");
+        System.out.format(format, "====================", "====================", "====================", "====================");
+        map.forEach((key, value) -> System.out.format(format, key.getVorname(), key.getName(), value));
     }
 
     @Override

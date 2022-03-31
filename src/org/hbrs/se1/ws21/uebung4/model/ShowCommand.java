@@ -13,7 +13,8 @@ public class ShowCommand implements Command{
             case "employee" -> {
                 try {
                     Employee employee = Container.getSpecEmployee(Integer.parseInt(parameter[2]));
-                    System.out.println(employee.toString());
+                    System.out.println(employee.getVorname() + " " + employee.getName() + "\nExpertise: " + employee.getExpertise() + "\n" +
+                            "Verfuegbarkeit: " + employee.getVerfuegbarkeit() + "\nOverall Match: " + employee.getOvMatch() );
                     //System.out.println("DUMP-Employee: " + parameter[2]);
                 } catch (IndexOutOfBoundsException e){
                     System.out.println(e.getMessage());
@@ -24,8 +25,9 @@ public class ShowCommand implements Command{
 
             case "sprint" -> {
                 try {
-                    Sprint temp_sprint = Container.getInstance().getSprintFromName(parameter[2].replaceAll("^\"|\"$", ""));
-                    System.out.println(temp_sprint.toString());
+                    Sprint sprint = Container.getInstance().getSprintFromName(parameter[2].replaceAll("^\"|\"$", ""));
+                    System.out.println("Sprint-ID: " + sprint.getSid() +"\n" + sprint.getName() + "\nExpertise/n: " + sprint.getExpertise() + "\n" +
+                            "Startdatum: " + sprint.getStartdate() + "\nEnddatum: " + sprint.getEnddate());
                     //System.out.println("DUMP-Sprint: " + parameter[2]);
                 } catch (IndexOutOfBoundsException e){
                     System.out.println(e.getMessage());

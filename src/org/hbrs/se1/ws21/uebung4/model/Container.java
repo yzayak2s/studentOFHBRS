@@ -36,7 +36,7 @@ public class Container {
 	private static Container instance = new Container();
 	
 	// URL der Datei, in der die Objekte gespeichert werden
-	final static String LOCATION2 = "allsprints1.ser";
+	//final static String LOCATION2 = "allsprints1.ser"; todo Initialisierung wird nicht mehr benoetigt. Siehe StoreCommand bzw. LoadCommand
 
 	/**
 	 * Liefert ein Singleton zurück.
@@ -54,110 +54,6 @@ public class Container {
 		employeeListe = new ArrayList<Employee>();
 		sprintList = new ArrayList<Sprint>();
 	}
-	
-	/**
-	 * Start-Methoden zum Starten des Programms 
-	 * (hier koennen ggf. weitere Initialisierungsarbeiten gemacht werden spaeter)
-	 */
-	//public static void main (String[] args) throws Exception {
-	//	Container con = Container.getInstance();
-	//	con.startEingabe();
-	//}
-	
-	/*
-	 * Diese Methode realisiert eine Eingabe ueber einen Scanner
-	 * Alle Exceptions werden an den aufrufenden Context (hier: main) weitergegeben (throws)
-	 * Das entlastet den Entwickler zur Entwicklungszeit und den Endanwender zur Laufzeit
-	 * startEingabe()-Methode befindet sich nun in der Klasse CommandHandler!
-	 */
-	//public void startEingabe() throws ContainerException, Exception {
-		//
-	//	String strInput = null;
-		//
-	//	// Initialisierung des Eingabe-View
-	//	Scanner scanner = new Scanner(System.in);
-		//
-	//	// Ausgabe eines Texts zur Begruessung
-	//	System.out.println("Employee-Tool V1.1 by yzayak2s & rfalke2s");
-		//
-	//	while (true) {
-	//
-	//		System.out.print("> ");
-	//
-	//		strInput = scanner.nextLine();
-	//
-	//		// Extrahiert ein Array aus der Eingabe
-	//		String[] strings = strInput.split(" ");
-	//
-	//
-	//
-	//		if (strings[0].equals("store")) {
-	//			this.storeEmpl();
-	//		}
-	//		// Anwendung beenden, Scanner schließen
-	//		if (strings[0].equals("exit")) {
-	//			scanner.close();
-	//			break;
-	//		}
-	//		if (strings[0].equals("search")) {
-	//			List<Employee> tmp = new ArrayList<>();
-	//			for (Employee employee : employeeListe) {
-	//				for (int i = 0; i < employee.getExpertise().size(); i++) {
-	//					if (strings[1].equals(employee.getExpertise().get(i))) {
-	//						tmp.add(employee);
-	//					}
-	//				}
-	//			}
-	//			startAusgabeEmpl(tmp, strings[1]);
-	//		}
-	//		if (strings[0].equals("load")) {
-	//			try {
-	//				if (strings[1].equals("force")) {
-	//					employeeListe = null;
-	//					this.loadEmpl();
-	//				} else if (strings[1].equals("merge")) {
-	//					List<Employee> tmp = getCurrentListEmpl();    // zwischenzeitliches speichern der aktuellen Liste im Container
-	//					loadEmpl();                                    // ersetzen der liste durch die liste im File
-	//					for (Employee employee : tmp) {
-	//						int counter = 0;
-	//						int tempID = employee.getPid();
-	//						for(Employee e: Container.getInstance().getCurrentListEmpl()) {
-	//							if(e.getPid()!= tempID){
-	//								counter++;
-	//							}
-	//						}
-	//						if (counter==Container.getInstance().getCurrentListEmpl().size()) {
-	//							employeeListe.add(employee);   // hinzufügen der temporär gespeicherten Mitarbeiter sofern noch nicht im Speicher
-	//						}
-	//						else {
-	//							System.out.println("ID: " + tempID + " bereits vergeben! Wollen sie die ID überschreiben?");
-	//							Scanner sc = new Scanner(System.in);
-	//							if(sc.next().toUpperCase().equals("JA")) {
-	//								for (Employee e : employeeListe) {
-	//									if (e.getPid() == tempID) {
-	//										employeeListe.remove(e);		// Element mit derselben Nummer löschen
-	//										employeeListe.add(employee);	// Das Element aus dem File hinzufügen
-	//										break;
-	//									}
-	//									else{}
-	//								}
-	//							}
-	//							else {}
-	//						}
-	//					}
-	//				}
-	//				else{
-	//					System.out.println("Unbekannter Befehl! Mögliche Befehle: load force, load merge");
-	//				}
-	//			}
-	//			catch(ArrayIndexOutOfBoundsException e){
-	//					System.out.println("Geben Sie bitte die Variante des Ladens als 2. Parameter an (load force oder load merge).");
-	//				}
-	//
-	//
-	//			}
-	//		}
-	//	}
 
 	/**
 	 * Diese Methode realisiert die Ausgabe.
@@ -188,8 +84,11 @@ public class Container {
 		}
 		// Klassische Ausgabe ueber eine For-Each-Schleife
 		if (orderBy.equals("dump")){
+			String format = "|%1$-20s|%2$-20s|%3$-20s|%4$-20s|%5$-25s|%6$-25s|%7$-20s|%8$-20s|%n";
+			System.out.format(format, "Mitarbeiter-ID", "Vorname", "Nachname", "Rolle", "Abteilung", "Expertisen", "Startdatum", "Enddatum");
+			System.out.format(format, "====================", "====================", "====================", "====================", "=========================", "=========================", "====================", "====================");
 			for (Employee employee : listEmployees) {
-				System.out.println(employee.toString());
+				System.out.format(format, employee.getPid(), employee.getVorname(), employee.getName(), employee.getRolle(), employee.getAbteilung(), employee.getExpertise(), employee.getStartVerfuegbarkeit(), employee.getEndVerfuegbarkeit());
 			}
 		}
 		else if (orderBy.equals("planProzent")){
@@ -208,8 +107,11 @@ public class Container {
 	}
 
 	public void startAusgabeSpr(List<Sprint> sprintList){
+		String format = "|%1$-20s|%2$-20s|%3$-30s|%4$-20s|%5$-20s|%n";
+		System.out.format(format, "Sprint ID", "Sprintname", "Expertise/n", "Startdatum", "Enddatum");
+		System.out.format(format, "====================", "====================", "==============================", "====================", "====================");
 		for (Sprint sprint : sprintList) { // Lösung mit Sprint For each:
-			System.out.println(sprint.toString()); //Ausgabe auf der Konsole
+			System.out.format(format, sprint.getSid(), sprint.getName(), sprint.getExpertise(), sprint.getStartdate(), sprint.getEnddate()); //Ausgabe auf der Konsole
 		}
 		//List<String> listSprint = this.sprintList.stream()
 		//		.map(sprint -> sprint.getName())
@@ -292,28 +194,28 @@ public class Container {
 	//}
 
 	// TODO: 28.03.22 Entferne Methode
-	private void storeSpr() throws ContainerException{
-		ObjectOutputStream oos = null;
-		FileOutputStream fos = null;
-		try {
-			fos = new FileOutputStream( Container.LOCATION2 );
-			oos = new ObjectOutputStream(fos);
-
-			oos.writeObject( this.sprintList );
-			System.out.println( this.sizeSpr() + " Sprint/s wurde/n erfolgreich gespeichert!");
-		}
-		catch (IOException e) {
-			e.printStackTrace();
-			//  Delegation in den aufrufendem Context
-			// (Anwendung Pattern "Chain Of Responsibility)
-			throw new ContainerException("Fehler beim Abspeichern");
-		}
-	}
+	//private void storeSpr() throws ContainerException{
+	//	ObjectOutputStream oos = null;
+	//	FileOutputStream fos = null;
+	//	try {
+	//		fos = new FileOutputStream( Container.LOCATION2 );
+	//		oos = new ObjectOutputStream(fos);
+	//
+	//		oos.writeObject( this.sprintList );
+	//		System.out.println( this.sizeSpr() + " Sprint/s wurde/n erfolgreich gespeichert!");
+	//	}
+	//	catch (IOException e) {
+	//		e.printStackTrace();
+	//		//  Delegation in den aufrufendem Context
+	//		// (Anwendung Pattern "Chain Of Responsibility)
+	//		throw new ContainerException("Fehler beim Abspeichern");
+	//	}
+	//}
 
 	// TODO: 28.03.22 Entferne Methode
-	public static void storeSprint() throws ContainerException{
-		Container.getInstance().storeSpr();
-	}
+	//public static void storeSprint() throws ContainerException{
+	//	Container.getInstance().storeSpr();
+	//}
 
 	/*
 	 * Methode zum Laden der Liste. Es wird die komplette Liste
@@ -352,31 +254,31 @@ public class Container {
 	 * inklusive ihrer gespeicherten Sprints-Objekte geladen.
 	 *
 	 */
-	public void loadSpr() {
-		ObjectInputStream ois = null;
-		FileInputStream fis = null;
-		try {
-			fis = new FileInputStream( Container.LOCATION2 );
-			ois = new ObjectInputStream(fis);
-			// Auslesen der Liste
-			Object obj = ois.readObject();
-			if (obj instanceof List<?>) {
-				this.sprintList = (List) obj;
-			}
-			System.out.println("Es wurde/n " + this.sizeSpr() + " Sprint/s erfolgreich hochgeladen!");
-		}
-		catch (IOException e) {
-			System.out.println("LOG (für Admin): Datei konnte nicht gefunden werden!");
-			System.out.println();
-		}
-		catch (ClassNotFoundException e) {
-			System.out.println("LOG (für Admin): Liste konnte nicht extrahiert werden (ClassNotFound)!");
-		}
-		finally {
-			if (ois != null) try { ois.close(); } catch (IOException e) {}
-			if (fis != null) try { fis.close(); } catch (IOException e) {}
-		}
-	}
+	//public void loadSpr() {
+	//	ObjectInputStream ois = null;
+	//	FileInputStream fis = null;
+	//	try {
+	//		fis = new FileInputStream( Container.LOCATION2 );
+	//		ois = new ObjectInputStream(fis);
+	//		// Auslesen der Liste
+	//		Object obj = ois.readObject();
+	//		if (obj instanceof List<?>) {
+	//			this.sprintList = (List) obj;
+	//		}
+	//		System.out.println("Es wurde/n " + this.sizeSpr() + " Sprint/s erfolgreich hochgeladen!");
+	//	}
+	//	catch (IOException e) {
+	//		System.out.println("LOG (für Admin): Datei konnte nicht gefunden werden!");
+	//		System.out.println();
+	//	}
+	//	catch (ClassNotFoundException e) {
+	//		System.out.println("LOG (für Admin): Liste konnte nicht extrahiert werden (ClassNotFound)!");
+	//	}
+	//	finally {
+	//		if (ois != null) try { ois.close(); } catch (IOException e) {}
+	//		if (fis != null) try { fis.close(); } catch (IOException e) {}
+	//	}
+	//}
 
 	/**
 	 * Methode zum Hinzufügen eines Mitarbeiters unter Wahrung der Schlüsseleigenschaft

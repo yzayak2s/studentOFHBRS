@@ -14,7 +14,7 @@ public class StoreCommand implements Command{
         this.parameter = parameter;
     }
 
-    final static String LOCATION = "allemployees2.ser";
+    final static String LOCATION = "allemployees4.ser";
     final static String LOCATION2 = "allsprints2.ser";
 
     @Override
@@ -22,6 +22,7 @@ public class StoreCommand implements Command{
         if(parameter[1].equals("sprint")){
             // Speichern der Employees siehe Methode storeEmpl()
             storeSpr();
+            Container.getInstance().startAusgabeSpr(Container.getInstance().getCurrentListSpr());
         } else if(parameter[1].equals("employee")){
             // Speichern der Sprints
             storeEmpl();
@@ -56,7 +57,7 @@ public class StoreCommand implements Command{
             oos = new ObjectOutputStream(fos);
 
             oos.writeObject( Container.getInstance().getCurrentListSpr());
-            System.out.println( Container.getInstance().sizeSpr() + " Sprint/s wurde/n erfolgreich gespeichert!");
+            System.out.println( Container.getInstance().sizeSpr() + " Sprint/s wurde/n erfolgreich gespeichert! Übersicht:");
         }
         catch (IOException e) {
             e.printStackTrace();
