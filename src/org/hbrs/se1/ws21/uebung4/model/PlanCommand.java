@@ -75,7 +75,7 @@ public class PlanCommand implements Command {
                                 double daysDifferenceEnd = (timeDifferenceEnd / (1000*60*60*24)) % 365;
                                 dateFactor = (lengthSprintDays-daysDifferenceEnd)/lengthSprintDays;
                                 if (start){
-                                    dateFactor = lengthSprintDays-(daysDifferenceStart+daysDifferenceEnd)/lengthSprintDays;
+                                    dateFactor = (lengthSprintDays-(daysDifferenceStart+daysDifferenceEnd))/lengthSprintDays;
                                 }
                             }
                         }
