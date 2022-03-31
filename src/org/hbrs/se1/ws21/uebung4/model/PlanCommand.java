@@ -16,15 +16,25 @@ public class PlanCommand implements Command {
     @Override
     public void execute() throws ContainerException, ParseException {
         // TODO: 21.03.22 plan sprint weiter implementieren
+        if(CommandList.getLastCommand() instanceof org.hbrs.se1.ws21.uebung4.model.PlanCommand){
+            Command command1 = CommandList.getLastCommand();
+            CommandList.pop();
+            if(CommandList.getLastCommand() instanceof org.hbrs.se1.ws21.uebung4.model.PlanCommand){
+                Command command2 = CommandList.getLastCommand();
+                if (command1.equals(command2)){
+                    helperPlan(true);
+                }
+            }
+        }
         if(parameter[3].equals("-all")){
-            helperPlan(true);
+            printMap(true);
         } else if (parameter[3].equals("none")){
-            helperPlan(false);
+            printMap(false);
 
         }
     }
 
-    public void helperPlan(boolean showAllParameter) throws ContainerException, ParseException {
+    public  Map<Employee, Double> helperPlan(boolean showAllParameter) throws ParseException {
         HashMap<Employee, Double> matchList = new HashMap<>();
         if (Container.getInstance().checkName(parameter[2])) {
             for (Employee employee : Container.getInstance().getCurrentListEmpl()) {
@@ -93,7 +103,7 @@ public class PlanCommand implements Command {
                     }
 
                 }
-            if (showAllParameter || matchPct != 0) {
+            if (showAllParameter || matchPct != 0 && dateFactor != 0) {
                 matchPct = matchPct * dateFactor;
                 matchPct = Math.round(matchPct);
                 matchList.put(employee, matchPct);
@@ -104,10 +114,7 @@ public class PlanCommand implements Command {
                 System.out.println("Den angegebenen Sprint: \""+parameter[2]+ "\" gibt es nicht.");
             }
 
-
-        System.out.println("Die folgenden Mitarbeiter sind für Ihren Sprint (nicht) geeignet: ");
-        Map<Employee, Double> sortedMap = hashMapSort(matchList);
-        printMap(sortedMap);
+            return hashMapSort(matchList);
 
     }
 
@@ -123,11 +130,14 @@ public class PlanCommand implements Command {
         return sortedMap;
     }
 
-    private static void printMap(Map<Employee, Double> map) {
+    private void printMap(boolean showAllParameter) throws ParseException {
+        Map<Employee, Double> matchList = helperPlan(showAllParameter);
+        Map<Employee, Double> sortedMap = hashMapSort((HashMap<Employee, Double>) matchList);
+        System.out.println("Die folgenden Mitarbeiter sind für Ihren Sprint (nicht) geeignet: ");
         String format = "|%1$-20s|%2$-20s|%3$-20s|%n";
         System.out.format(format, "Vorname", "Nachname", "Treffer in %");
         System.out.format(format, "====================", "====================", "====================", "====================");
-        map.forEach((key, value) -> System.out.format(format, key.getVorname(), key.getName(), value));
+        sortedMap.forEach((key, value) -> System.out.format(format, key.getVorname(), key.getName(), value));
     }
 
     @Override

@@ -1,5 +1,9 @@
 package org.hbrs.se1.ws21.uebung4.model;
 
+import java.text.ParseException;
+import java.util.HashMap;
+import java.util.Map;
+
 public class ShowCommand implements Command{
     private final String[] parameter;
 
@@ -13,14 +17,17 @@ public class ShowCommand implements Command{
             case "employee" -> {
                 try {
                     Employee employee = Container.getSpecEmployee(Integer.parseInt(parameter[2]));
+                    System.out.println(CommandList.getLastCommand().getClass());
+
                     System.out.println(employee.getVorname() + " " + employee.getName() + "\nExpertise: " + employee.getExpertise() + "\n" +
                             "Verfuegbarkeit: " + employee.getVerfuegbarkeit() + "\nOverall Match: " + employee.getOvMatch() );
                     //System.out.println("DUMP-Employee: " + parameter[2]);
                 } catch (IndexOutOfBoundsException e){
                     System.out.println(e.getMessage());
                 } catch (NumberFormatException numberFormatException){
-                    System.out.println("Geben Sie bitte eine gültige ID!");
+                    System.out.println("Geben Sie bitte eine gültige ID ein!");
                 }
+
             }
 
             case "sprint" -> {

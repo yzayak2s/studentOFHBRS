@@ -30,5 +30,9 @@ public class CommandList {
     public static int size() {
         return stack.size();
     }
+
+    public static Command getLastCommand() {
+        return (Command) stack.lastElement();
+    }
 }
 

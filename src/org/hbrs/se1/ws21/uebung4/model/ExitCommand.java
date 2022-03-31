@@ -8,7 +8,7 @@ public class ExitCommand implements Command {
     }
 
     @Override
-    public void execute() throws ContainerException {
+    public void execute(){
         System.out.println("Das Programm wird beendet!\n" +
                 "Auf Wiedersehen!");
     }
